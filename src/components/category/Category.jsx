@@ -7,19 +7,19 @@ const category = [
     name: "Logistica Internacional",
   },
   {
-    image: "https://cdn-icons-png.flaticon.com/256/11833/11833323.png",
+    image: "https://cdn-icons-png.flaticon.com/256/2760/2760975.png",
     name: "Agenciamiento Aduanal",
   },
   {
-    image: "https://cdn-icons-png.flaticon.com/256/8174/8174424.png",
+    image: "https://cdn-icons-png.flaticon.com/256/1350/1350237.png",
     name: "Almacenaje Fiscal-General",
   },
   {
-    image: "https://cdn-icons-png.flaticon.com/256/7648/7648246.png",
+    image: "https://cdn-icons-png.flaticon.com/256/147/147028.png",
     name: "Transporte Local de Carga ",
   },
   {
-    image: "https://cdn-icons-png.flaticon.com/256/12142/12142416.png",
+    image: "https://cdn-icons-png.flaticon.com/256/12113/12113850.png",
     name: "Asesorias y Capacitaciones",
   },
 ];
@@ -30,6 +30,14 @@ const Category = () => {
   return (
     <div>
       <div className="flex flex-col mt-5">
+        {/* Encabezado "Servicios" */}
+        <div className="">
+          <h1 className=" text-center mb-5 text-2xl font-semibold">
+            Servicios
+          </h1>
+        </div>
+
+        {/* Contenedor ajustado */}
         <div className="flex overflow-x-scroll lg:justify-center hide-scroll-bar">
           <div className="flex space-x-2 lg:space-x-4">
             {category.map((item, index) => (

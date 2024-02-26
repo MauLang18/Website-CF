@@ -10,25 +10,20 @@ const Footer = () => {
           {/* logo  */}
           <Link to={"/"}>
             {/* Cambiado de texto a imagen */}
-            <img src="img/logo.webp" alt="Logo" className="h-12" />
+            <img src="img/logo.png" alt="Logo" className="h-[100px]" />
           </Link>
           {/* para  */}
           <p className="text-sm text-black sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">
-            © 2024 ebharat —
-            <Link
-              to={"/"}
-              className="text-black ml-1"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              @ebharat
-            </Link>
+            © 2024 Grupo Castro Fallas
           </p>
 
           {/* media icon  */}
           <span className="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
             {/* facebook  */}
-            <a className="text-black cursor-pointer">
+            <a
+              href="https://es-la.facebook.com/grupocastrofallas1/"
+              className="text-black cursor-pointer"
+            >
               <svg
                 fill="currentColor"
                 strokeLinecap="round"
@@ -42,7 +37,10 @@ const Footer = () => {
             </a>
 
             {/* twitter  */}
-            <a className="ml-3 text-black cursor-pointer">
+            <a
+              href="https://twitter.com/castrofagrupo"
+              className="ml-3 text-black cursor-pointer"
+            >
               <svg
                 fill="currentColor"
                 strokeLinecap="round"
@@ -56,7 +54,10 @@ const Footer = () => {
             </a>
 
             {/* instagram  */}
-            <a className="ml-3 text-black cursor-pointer">
+            <a
+              href="https://www.instagram.com/grupocastrofallas1/"
+              className="ml-3 text-black cursor-pointer"
+            >
               <svg
                 fill="none"
                 stroke="currentColor"
@@ -72,7 +73,10 @@ const Footer = () => {
             </a>
 
             {/* linkedIn  */}
-            <a className="ml-3 text-black cursor-pointer">
+            <a
+              href="https://www.linkedin.com/company/grupo-castro-fallas/"
+              className="ml-3 text-black cursor-pointer"
+            >
               <svg
                 fill="currentColor"
                 stroke="currentColor"
