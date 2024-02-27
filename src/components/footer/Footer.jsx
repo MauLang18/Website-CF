@@ -10,7 +10,7 @@ const Footer = () => {
           {/* logo  */}
           <Link to={"/"}>
             {/* Cambiado de texto a imagen */}
-            <img src="img/logo.png" alt="Logo" className="h-[100px]" />
+            <img src="../img/logo.png" alt="Logo" className="h-[100px]" />
           </Link>
           {/* para  */}
           <p className="text-sm text-black sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">

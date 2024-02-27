@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Dialog, DialogBody } from "@material-tailwind/react";
-import "../buyNowModal/timeline.css";
+import Timeline from "@mui/lab/Timeline";
+import TimelineItem from "@mui/lab/TimelineItem";
+import TimelineSeparator from "@mui/lab/TimelineSeparator";
+import TimelineConnector from "@mui/lab/TimelineConnector";
+import TimelineContent from "@mui/lab/TimelineContent";
+import TimelineDot from "@mui/lab/TimelineDot";
+import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent";
+import Typography from "@mui/material/Typography";
 
 const TrackingForm = ({ data, handleClose }) => {
   const [searchOption, setSearchOption] = useState("IDTRA");
   const [searchText, setSearchText] = useState("");
-  const [searchResults, setSearchResults] = useState([{}]); // Inicializar con un objeto vacío
-  const [timelineData, setTimelineData] = useState([{}]); // Inicializar con un objeto vacío
+  const [searchResults, setSearchResults] = useState([{}]);
+  const [timelineData, setTimelineData] = useState([{}]);
   const [open, setOpen] = useState(true);
 
   const handleSearch = () => {
@@ -17,34 +24,54 @@ const TrackingForm = ({ data, handleClose }) => {
   };
 
   const fetchTimelineData = () => {
-    // Lógica para obtener datos del timeline (adaptar según tu lógica)
     const timeline = [
       {
-        label: "Lorem ipsum dolor sit amet",
-        date: "12 May 2013",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio ea necessitatibus quo velit natus cupiditate qui alias possimus ab praesentium nostrum quidem obcaecati nesciunt! Molestiae officiis voluptate excepturi rem veritatis eum aliquam qui laborum non ipsam ullam tempore reprehenderit illum eligendi cumque mollitia temporibus! Natus dicta qui est optio rerum.",
+        date: "ETD",
+        label: "ETD: ",
+        description: "POE: ",
       },
-      // Agrega más eventos según tu lógica
-    ]; // Obtén tus datos reales aquí
+      {
+        date: "Confirmación Zarpe",
+        label: "BUQUE: ",
+        description: "ZARPE: ",
+      },
+      {
+        date: "ETD",
+        label: "ETD: ",
+        description: "POL: ",
+      },
+      {
+        date: "Notif. Aviso Arribo",
+        label: "ARRIBO: ",
+      },
+      {
+        date: "ETA",
+        label: "ETA: ",
+        description: "POE: ",
+      },
+      {
+        date: "ENTREGA",
+        label: "ENTREGA: ",
+      },
+    ];
     setTimelineData(timeline);
   };
 
   useEffect(() => {
     fetchTimelineData();
-  }, []); // Se ejecuta solo al montar el componente
+  }, []);
 
   const handleCloseModal = () => {
-    setSearchResults([{}]); // Restablecer a un objeto vacío al cerrar el modal
-    setTimelineData([{}]); // Restablecer a un objeto vacío al cerrar el modal
+    setSearchResults([{}]);
+    setTimelineData([{}]);
     setOpen(false);
     handleClose();
   };
 
   return (
     <Dialog open={open} handler={handleCloseModal} className="bg-[#f5f5f5]">
-      <DialogBody className="space-y-4">
-        <div className="p-6 max-w-md mx-auto bg-white rounded-xl shadow-md flex items-center space-x-4">
+      <DialogBody className="space-y-4 overflow-auto max-h-[400px]">
+        <div className="p-6 max-w-md mx-auto bg-white rounded-xl shadow-md flex flex-col space-y-4">
           <div>
             <label
               htmlFor="searchOption"
@@ -66,15 +93,17 @@ const TrackingForm = ({ data, handleClose }) => {
             </select>
           </div>
 
-          <input
-            type="text"
-            name="search"
-            id="search"
-            value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
-            className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-l-md pl-10 sm:text-sm border-gray-300"
-            placeholder="Agrega el dato"
-          />
+          <div className="md:w-1/3">
+            <input
+              type="text"
+              name="search"
+              id="search"
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+              className="focus:ring-indigo-500 focus:border-indigo-500 block w-full rounded-md sm:text-lg"
+              placeholder="Agrega el dato"
+            />
+          </div>
 
           <button
             type="submit"
@@ -105,36 +134,23 @@ const TrackingForm = ({ data, handleClose }) => {
               <p className="font-bold">TRANSPORTE:</p>
               <p>{result.bl}</p>
 
-              <ul id="timeline" className="list-none">
+              <Timeline>
                 {timelineData.map((event, index) => (
-                  <li key={index} className="work">
-                    <input
-                      className="radio"
-                      type="radio"
-                      id={`work${index}`}
-                      name="works"
-                      checked={index === 0}
-                    />
-                    <div className="relative">
-                      <label htmlFor={`work${index}`}>{event.label}</label>
-                      <span className="date">{event.date}</span>
-                      <span className="circle"></span>
-                    </div>
-                    <div className="content">
-                      <p>{event.description}</p>
-                    </div>
-                  </li>
+                  <TimelineItem key={index}>
+                    <TimelineOppositeContent color="textSecondary">
+                      {event.date}
+                    </TimelineOppositeContent>
+                    <TimelineSeparator>
+                      <TimelineDot />
+                      <TimelineConnector />
+                    </TimelineSeparator>
+                    <TimelineContent>
+                      <Typography>{event.label}</Typography>
+                      <Typography>{event.description}</Typography>
+                    </TimelineContent>
+                  </TimelineItem>
                 ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-
-        <div>
-          {timelineData.map((event) => (
-            <div key={event.id}>
-              <p>{event.label}</p>
-              <p>{event.date}</p>
+              </Timeline>
             </div>
           ))}
         </div>

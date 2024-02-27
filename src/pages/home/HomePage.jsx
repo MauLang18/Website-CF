@@ -1,7 +1,7 @@
 import Category from "../../components/category/Category";
+import ContactForm from "../../components/contact/ContactForm";
 import DataComponent from "../../components/datos/DataComponent";
 import HeroSection from "../../components/heroSection/HeroSection";
-import HomePageProductCard from "../../components/homePageProductCard/HomePageProductCard";
 import Mas from "../../components/impacto/Mas";
 import Layout from "../../components/layout/Layout";
 import Nosotros from "../../components/nosotros/Nosotros";
@@ -16,7 +16,7 @@ const HomePage = () => {
       <Nosotros />
       <DataComponent />
       <Mas />
-      {/* <HomePageProductCard /> */}
+      <ContactForm />
     </Layout>
   );
 };

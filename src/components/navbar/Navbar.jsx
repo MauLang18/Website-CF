@@ -74,7 +74,7 @@ const NavBar = () => {
           {/* Coloca el logo en el lado izquierdo */}
           <Link to={"/"}>
             <img
-              src="img/logo.png"
+              src="../img/logo.png"
               alt="Logo"
               className="w-[150px] h-[100px]"
             />
@@ -158,7 +158,7 @@ const NavBar = () => {
           {/* Logo en el lado izquierdo */}
           <Link to={"/"}>
             <img
-              src="img/logo.png"
+              src="../img/logo.png"
               alt="Logo"
               className="w-[150px] h-[100px]"
             />
@@ -213,7 +213,7 @@ const NavBar = () => {
           {!user && (
             <div>
               <Link to={"/login"} onClick={closeMenu}>
-                <img src="on-off.png" alt="Icono" className="w-6 h-6" />
+                <img src="../on-off.png" alt="Icono" className="w-6 h-6" />
               </Link>
             </div>
           )}

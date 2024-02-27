@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import BuyNowModal from "../buyNowModal/BuyNowModal"; // Ajusta la ruta según la ubicación real del componente
+import TrackingForm from "../modal/TrackingForm"; // Ajusta la ruta según la ubicación real del componente
 import { Navigate } from "react-router-dom"; // Ajusta la importación según tu configuración
 
 const Track = () => {
@@ -79,7 +79,7 @@ const Track = () => {
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
-          <BuyNowModal
+          <TrackingForm
             data={{}} // Asegúrate de pasar los datos correctos aquí
             handleClose={handleCloseModal} // Pasa la función de cierre al modal
           />
