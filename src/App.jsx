@@ -29,7 +29,7 @@ const App = () => {
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route
-            path="/category/:categoryname"
+            path="/servicio/:categoryname"
             element={<CategoryPage />}
           />{" "}
           {/* category Page route  */}

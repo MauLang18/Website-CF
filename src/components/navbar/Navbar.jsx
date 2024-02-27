@@ -46,19 +46,16 @@ const NavBar = () => {
     navigate("/login");
   };
 
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   const mobileMenuStyles = showMenu
     ? "top-0 xl:static flex-1 flex flex-col xl:flex-row items-center justify-center gap-10 transition-all duration-500 z-50"
     : "hidden";
-
-  const extractValue = (data) => {
-    if (data && data.data && data.data.valor) {
-      return data.data.valor;
-    } else if (data && data.Valor) {
-      return data.Valor;
-    } else {
-      return "";
-    }
-  };
 
   return (
     <>
@@ -111,36 +108,32 @@ const NavBar = () => {
               </Link>
             )}
             <Link
-              to={"/allproduct"}
-              onClick={() => scrollToSection("nosotros")}
-              className={`${selectedOption === "nosotros" ? "underline" : ""}`}
-              style={{ fontFamily: "'fuente', sans-serif" }}
-            >
-              Logística Internacional
-            </Link>
-            <Link
-              to={"/allproduct"}
               onClick={() => scrollToSection("servicios")}
               className={`${selectedOption === "servicios" ? "underline" : ""}`}
               style={{ fontFamily: "'fuente', sans-serif" }}
             >
-              Agenciamiento Aduanal
+              Servicios
             </Link>
             <Link
-              to={"/allproduct"}
+              onClick={() => scrollToSection("nosotros")}
+              className={`${selectedOption === "nosotros" ? "underline" : ""}`}
+              style={{ fontFamily: "'fuente', sans-serif" }}
+            >
+              Nosotros
+            </Link>
+            <Link
+              onClick={() => scrollToSection("impacto")}
+              className={`${selectedOption === "impacto" ? "underline" : ""}`}
+              style={{ fontFamily: "'fuente', sans-serif" }}
+            >
+              Impacto industrial
+            </Link>
+            <Link
               onClick={() => scrollToSection("contacto")}
               className={`${selectedOption === "contacto" ? "underline" : ""}`}
               style={{ fontFamily: "'fuente', sans-serif" }}
             >
-              Almacenaje Fiscal-General
-            </Link>
-            <Link
-              to={"/allproduct"}
-              onClick={() => scrollToSection("envio")}
-              className={`${selectedOption === "envio" ? "underline" : ""}`}
-              style={{ fontFamily: "'fuente', sans-serif" }}
-            >
-              Transporte Local de Carga
+              Contacto
             </Link>
           </nav>
         )}
@@ -165,44 +158,40 @@ const NavBar = () => {
           </Link>
           {/* Resto de los enlaces */}
           <Link
-            to={"/allproduct"}
-            className={`${
-              selectedOption === "nosotros" ? "underline" : ""
-            } text-black text-lg font-medium transition-colors hover:underline`}
-            style={{ fontFamily: "'fuente', sans-serif" }}
-            onClick={() => scrollToSection("nosotros")}
-          >
-            Logística Internacional
-          </Link>
-          <Link
-            to={"/allproduct"}
             className={`${
               selectedOption === "servicios" ? "underline" : ""
             } text-black text-lg font-medium transition-colors hover:underline`}
             style={{ fontFamily: "'fuente', sans-serif" }}
             onClick={() => scrollToSection("servicios")}
           >
-            Agenciamiento Aduanal
+            Servicios
           </Link>
           <Link
-            to={"/allproduct"}
+            className={`${
+              selectedOption === "nosotros" ? "underline" : ""
+            } text-black text-lg font-medium transition-colors hover:underline`}
+            style={{ fontFamily: "'fuente', sans-serif" }}
+            onClick={() => scrollToSection("nosotros")}
+          >
+            Nosotros
+          </Link>
+          <Link
+            className={`${
+              selectedOption === "impacto" ? "underline" : ""
+            } text-black text-lg font-medium transition-colors hover:underline`}
+            style={{ fontFamily: "'fuente', sans-serif" }}
+            onClick={() => scrollToSection("impacto")}
+          >
+            Impacto industrial
+          </Link>
+          <Link
             className={`${
               selectedOption === "contacto" ? "underline" : ""
             } text-black text-lg font-medium transition-colors hover:underline`}
             style={{ fontFamily: "'fuente', sans-serif" }}
             onClick={() => scrollToSection("contacto")}
           >
-            Almacenaje Fiscal-General
-          </Link>
-          <Link
-            to={"/allproduct"}
-            className={`${
-              selectedOption === "envio" ? "underline" : ""
-            } text-black text-lg font-medium transition-colors hover:underline`}
-            style={{ fontFamily: "'fuente', sans-serif" }}
-            onClick={() => scrollToSection("envio")}
-          >
-            Transporte Local de Carga
+            Contacto
           </Link>
         </div>
         <div

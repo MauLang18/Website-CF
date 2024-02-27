@@ -3,7 +3,7 @@ import CustomCard from "../impacto/CustomCard";
 
 const Mas = () => {
   return (
-    <div className="lg:w-[950px] lg:h-[548px] w-full mx-auto">
+    <div id="impacto" className="lg:w-[950px] lg:h-[548px] w-full mx-auto">
       <div
         className="text-center text-black text-3xl font-bold mt-4"
         style={{ fontFamily: "'fuente', sans-serif" }}
