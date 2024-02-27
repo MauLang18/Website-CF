@@ -100,7 +100,7 @@ const TrackingForm = ({ data, handleClose }) => {
               id="search"
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
-              className="focus:ring-indigo-500 focus:border-indigo-500 block w-full rounded-md sm:text-lg"
+              className="block w-full rounded-md sm:text-lg"
               placeholder="Agrega el dato"
             />
           </div>
@@ -108,7 +108,7 @@ const TrackingForm = ({ data, handleClose }) => {
           <button
             type="submit"
             onClick={handleSearch}
-            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-[#e21c21] hover:bg-[#ff1f1f] focus:outline-none"
           >
             Buscar
           </button>
