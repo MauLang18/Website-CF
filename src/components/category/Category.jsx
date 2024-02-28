@@ -10,8 +10,92 @@ const Category = () => {
     {
       icon: "https://cdn-icons-png.flaticon.com/256/4695/4695562.png",
       name: "Logistica Internacional",
-      content: "",
-      image: "",
+      title1: "Logistica Marítima",
+      title2: "Logistica Terrestre",
+      title3: "Logistica Aérea",
+      content1: `
+  <div>
+    <p>
+      <strong>MODALIDAD LCL:</strong> Mayor flexibilidad en la gestión del almacenaje.
+    </p>
+    <p>
+      Las tarifas se ajustan al volumen y el peso de la carga.
+    </p>
+    <p>
+      Tarifas de transporte marítimo menos volátiles.
+    </p>
+    <p>
+      Costos más bajos de transporte terrestre.
+    </p>
+    <p>
+      Agilidad en el despacho de aduanas.
+    </p>
+  </div>
+  <div>
+    <p>
+      <strong>MODALIDAD FCL:</strong> La recolección y la entrega de la carga se programan fácilmente.
+    </p>
+    <p>
+      La carga viaja con total seguridad, sin riesgo de daños por manipulaciones adicionales.
+    </p>
+    <p>
+      Gastos portuarios locales estandarizados.
+    </p>
+    <p>
+      No hay riesgo de retrasos o daños por el contacto con las cargas de otros expedidores.
+    </p>
+  </div>
+`,
+      content2: `
+  <div>
+    <p>
+      <strong>MODALIDAD LTL:</strong> Mayor flexibilidad en la gestión del almacenaje.
+    </p>
+    <p>
+      Las tarifas se ajustan al volumen y el peso de la carga.
+    </p>
+    <p>
+      Tarifas de transporte terrestre menos volátiles.
+    </p>
+    <p>
+      Agilidad en el despacho de aduanas.
+    </p>
+  </div>
+  <div>
+    <p>
+      <strong>MODALIDAD FTL:</strong> La recolección y la entrega de la carga se programan fácilmente.
+    </p>
+    <p>
+      La carga viaja con total seguridad, sin riesgo de daños por manipulaciones adicionales.
+    </p>
+    <p>
+      Gastos fronterizos locales estandarizados.
+    </p>
+    <p>
+      No hay riesgo de retrasos o daños por el contacto con las cargas de otros expedidores.
+    </p>
+  </div>
+`,
+      content3: `
+  <p>
+    <strong>MODALIDAD LCL:</strong> Mayor flexibilidad en la gestión del almacenaje.
+  </p>
+  <p>
+    Las tarifas se ajustan al volumen y el peso de la carga.
+  </p>
+  <p>
+    Tarifas de transporte aéreo menos volátiles.
+  </p>
+  <p>
+    Costos más bajos de transporte terrestre.
+  </p>
+  <p>
+    Agilidad en el despacho de aduanas.
+  </p>
+`,
+      image1: "../logistica_maritima.jpg",
+      image2: "../logistica_terreste.jpg",
+      image3: "../logistica_aerea.jpg",
     },
     {
       icon: "https://cdn-icons-png.flaticon.com/256/2760/2760975.png",
@@ -48,20 +132,50 @@ const Category = () => {
     {
       icon: "https://cdn-icons-png.flaticon.com/256/1350/1350237.png",
       name: "Almacenaje Fiscal-General",
-      content: "",
-      image: "",
+      content: `
+  <p>
+    <strong>Almacén Fiscal en CRC:</strong> Instalaciones propias con gran capacidad de almacenamiento.
+  </p>
+  <p>
+    Bodegas propias en <strong>ZONA LIBRE, COLÓN, PANAMÁ.</strong>
+  </p>
+  <p>
+    Red de bodegas y almacenes con espacios, tarifas preferenciales hacia nuestros clientes.
+  </p>
+`,
+      image: "../almacen_fiscal.jpg",
     },
     {
       icon: "https://cdn-icons-png.flaticon.com/256/147/147028.png",
       name: "Transporte Local de Carga ",
-      content: "",
-      image: "",
+      content: `
+  <p>
+    <strong>Equipos y personal con experiencia, servicio 24/7.</strong>
+  </p>
+  <p>
+    Con una flotilla con <strong>ubicación satelital.</strong>
+  </p>
+  <p>
+    Capacidad de transporte en modalidades: <strong>Seco, Congelado, Refrigerado, Sobredimensionado.</strong>
+  </p>
+  <p>
+    Traslado de contenedores.
+  </p>
+`,
+      image: "../transporte_carga.jpg",
     },
     {
       icon: "https://cdn-icons-png.flaticon.com/256/12113/12113850.png",
       name: "Asesorias y Capacitaciones",
-      content: "",
-      image: "",
+      content: `
+  <p>
+    Brindamos a nuestros clientes una serie de capacitaciones mensuales, ya sea de manera presencial o virtual, sobre diversos temas de interés del comercio internacional. También ofrecemos asesorías personalizadas en materia técnica aduanal y comercio exterior.
+  </p>
+  <p>
+    Consulta por nuestro calendario de capacitaciones mensuales o bien, solicita una asesoría personalizada.
+  </p>
+`,
+      image: "../asesorias_capacitaciones.jpg",
     },
   ];
 
@@ -110,14 +224,39 @@ const Category = () => {
       </div>
 
       {modalOpen && (
-        <Modal isOpen={modalOpen} closeModal={closeModal}>
-          <AlternateImageText
-            imageSrc={selectedCategory.image}
-            title={selectedCategory.name}
-            content={selectedCategory.content}
-            imageFirst={true}
-          />
-        </Modal>
+        <div>
+          <Modal isOpen={modalOpen} closeModal={closeModal}>
+            <AlternateImageText
+              imageSrc={selectedCategory.image}
+              title={selectedCategory.name}
+              content={selectedCategory.content}
+              imageFirst={true}
+            />
+          </Modal>
+
+          {selectedCategory.image1 && (
+            <Modal isOpen={modalOpen} closeModal={closeModal}>
+              <AlternateImageText
+                imageSrc={selectedCategory.image1}
+                title={selectedCategory.title1}
+                content={selectedCategory.content1}
+                imageFirst={true}
+              />
+              <AlternateImageText
+                imageSrc={selectedCategory.image2}
+                title={selectedCategory.name2}
+                content={selectedCategory.content2}
+                imageFirst={false}
+              />
+              <AlternateImageText
+                imageSrc={selectedCategory.image3}
+                title={selectedCategory.name3}
+                content={selectedCategory.content3}
+                imageFirst={true}
+              />
+            </Modal>
+          )}
+        </div>
       )}
     </div>
   );
