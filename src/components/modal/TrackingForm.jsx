@@ -8,58 +8,80 @@ import TimelineContent from "@mui/lab/TimelineContent";
 import TimelineDot from "@mui/lab/TimelineDot";
 import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent";
 import Typography from "@mui/material/Typography";
+import { useFetch } from "../hooks/useFetch";
+import poeMapping from "../json/poe.json";
 
-const TrackingForm = ({ data, handleClose }) => {
+const TrackingForm = ({ handleClose }) => {
   const [searchOption, setSearchOption] = useState("IDTRA");
   const [searchText, setSearchText] = useState("");
   const [searchResults, setSearchResults] = useState([{}]);
   const [timelineData, setTimelineData] = useState([{}]);
   const [open, setOpen] = useState(true);
+  const apiUrl = `http://localhost:5218/api/TrackingNoLogin/${searchOption}?${searchOption}=${searchText}`;
+  const { data, error, loading } = useFetch(apiUrl); // Use useFetch hook with apiUrl
 
-  const handleSearch = () => {
-    const results = data.filter((item) =>
-      item[searchOption].toLowerCase().includes(searchText.toLowerCase())
-    );
-    setSearchResults(results);
+  const handleSearch = async () => {
+    try {
+      setSearchResults(data.data.value || []); // Actualiza aquí
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
 
-  const fetchTimelineData = () => {
-    const timeline = [
-      {
-        date: "ETD",
-        label: "ETD: ",
-        description: "POE: ",
-      },
-      {
-        date: "Confirmación Zarpe",
-        label: "BUQUE: ",
-        description: "ZARPE: ",
-      },
-      {
-        date: "ETD",
-        label: "ETD: ",
-        description: "POL: ",
-      },
-      {
-        date: "Notif. Aviso Arribo",
-        label: "ARRIBO: ",
-      },
-      {
-        date: "ETA",
-        label: "ETA: ",
-        description: "POE: ",
-      },
-      {
-        date: "ENTREGA",
-        label: "ENTREGA: ",
-      },
-    ];
+  const formatDate = (dateString) => {
+    const options = { day: "2-digit", month: "2-digit", year: "numeric" };
+    const formattedDate = new Date(dateString).toLocaleDateString(
+      "es-ES",
+      options
+    );
+    return formattedDate;
+  };
+
+  const getPoeName = (poe) => {
+    return poeMapping[poe] || "";
+  };
+
+  const fetchTimelineData = (searchResults1) => {
+    console.log(searchResults);
+    var timeline = [];
+
+    searchResults.map(
+      (result, index) =>
+        (timeline = [
+          {
+            date: "ETD",
+            label: `ETD: ${formatDate(result.new_etd1) || ""}`,
+            description: `POL: ${result.new_pol || ""}`,
+          },
+          {
+            date: "Confirmación Zarpe",
+            label: `BUQUE: ${result.new_nombrebuque || ""}`,
+            description: `ZARPE: ${
+              formatDate(result.new_confirmacinzarpe) || ""
+            }`,
+          },
+          {
+            date: "Notif. Aviso Arribo",
+            label: `ARRIBO: ${formatDate(result.new_ingresoabodegas) || ""}`,
+          },
+          {
+            date: "ETA",
+            label: `ETA: ${formatDate(result.new_eta) || ""}`,
+            description: `POE: ${getPoeName(result.new_poe) || ""}`,
+          },
+          {
+            date: "ENTREGA",
+            label: `ENTREGA: ${formatDate(result.new_instcliente) || ""}`,
+          },
+        ])
+    );
+
     setTimelineData(timeline);
   };
 
   useEffect(() => {
-    fetchTimelineData();
-  }, []);
+    fetchTimelineData(searchResults);
+  }, [searchResults]);
 
   const handleCloseModal = () => {
     setSearchResults([{}]);
@@ -118,21 +140,21 @@ const TrackingForm = ({ data, handleClose }) => {
           {searchResults.map((result, index) => (
             <div key={index} className="mb-4">
               <p className="font-bold">IDTRA:</p>
-              <p>{result.idtra}</p>
+              <p>{result.title}</p>
               <p className="font-bold">BL:</p>
-              <p>{result.bl}</p>
+              <p>{result.new_bcf}</p>
               <p className="font-bold">#CONTENEDOR:</p>
-              <p>{result.bl}</p>
+              <p>{result.new_contenedor}</p>
               <p className="font-bold">STATUS:</p>
-              <p>{result.bl}</p>
+              <p>{result.new_preestado2}</p>
               <p className="font-bold">FECHA MODIFICACIÓN:</p>
-              <p>{result.bl}</p>
+              <p>{formatDate(result.modifiedon)}</p>
               <p className="font-bold">ORIGEN:</p>
-              <p>{result.bl}</p>
+              <p>{result.new_origen}</p>
               <p className="font-bold">DESTINO:</p>
-              <p>{result.bl}</p>
+              <p>{result.new_destino}</p>
               <p className="font-bold">TRANSPORTE:</p>
-              <p>{result.bl}</p>
+              <p>{result.new_transporte}</p>
 
               <Timeline>
                 {timelineData.map((event, index) => (
