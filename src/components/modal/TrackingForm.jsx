@@ -10,6 +10,11 @@ import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent";
 import Typography from "@mui/material/Typography";
 import { useFetch } from "../hooks/useFetch";
 import poeMapping from "../json/poe.json";
+import polMapping from "../json/pol.json";
+import destinoMapping from "../json/destino.json";
+import origenMapping from "../json/origen.json";
+import transporteMapping from "../json/transporte.json";
+import statusMapping from "../json/status.json";
 
 const TrackingForm = ({ handleClose }) => {
   const [searchOption, setSearchOption] = useState("IDTRA");
@@ -41,8 +46,27 @@ const TrackingForm = ({ handleClose }) => {
     return poeMapping[poe] || "";
   };
 
-  const fetchTimelineData = (searchResults1) => {
-    console.log(searchResults);
+  const getPolName = (pol) => {
+    return polMapping[pol] || "";
+  };
+
+  const getDestinoName = (destino) => {
+    return destinoMapping[destino] || "";
+  };
+
+  const getOrigenName = (origen) => {
+    return origenMapping[origen] || "";
+  };
+
+  const getTransporteName = (transporte) => {
+    return transporteMapping[transporte] || "";
+  };
+
+  const getStatusName = (status) => {
+    return statusMapping[status] || "";
+  };
+
+  const fetchTimelineData = () => {
     var timeline = [];
 
     searchResults.map(
@@ -51,7 +75,7 @@ const TrackingForm = ({ handleClose }) => {
           {
             date: "ETD",
             label: `ETD: ${formatDate(result.new_etd1) || ""}`,
-            description: `POL: ${result.new_pol || ""}`,
+            description: `POL: ${getPolName(result.new_pol) || ""}`,
           },
           {
             date: "Confirmación Zarpe",
@@ -80,7 +104,7 @@ const TrackingForm = ({ handleClose }) => {
   };
 
   useEffect(() => {
-    fetchTimelineData(searchResults);
+    fetchTimelineData();
   }, [searchResults]);
 
   const handleCloseModal = () => {
@@ -146,15 +170,15 @@ const TrackingForm = ({ handleClose }) => {
               <p className="font-bold">#CONTENEDOR:</p>
               <p>{result.new_contenedor}</p>
               <p className="font-bold">STATUS:</p>
-              <p>{result.new_preestado2}</p>
+              <p>{getStatusName(result.new_preestado2)}</p>
               <p className="font-bold">FECHA MODIFICACIÓN:</p>
               <p>{formatDate(result.modifiedon)}</p>
               <p className="font-bold">ORIGEN:</p>
-              <p>{result.new_origen}</p>
+              <p>{getOrigenName(result.new_origen)}</p>
               <p className="font-bold">DESTINO:</p>
-              <p>{result.new_destino}</p>
+              <p>{getDestinoName(result.new_destino)}</p>
               <p className="font-bold">TRANSPORTE:</p>
-              <p>{result.new_transporte}</p>
+              <p>{getTransporteName(result.new_transporte)}</p>
 
               <Timeline>
                 {timelineData.map((event, index) => (
