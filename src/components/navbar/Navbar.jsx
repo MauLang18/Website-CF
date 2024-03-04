@@ -103,7 +103,7 @@ const NavBar = () => {
                 Logout
               </div>
             ) : (
-              <Link to={"/login"} onClick={closeMenu}>
+              <Link to={"/"} onClick={closeMenu}>
                 Registrarse / Iniciar sesión
               </Link>
             )}
@@ -201,7 +201,7 @@ const NavBar = () => {
           {/* Login */}
           {!user && (
             <div>
-              <Link to={"/login"} onClick={closeMenu}>
+              <Link to={"/"} onClick={closeMenu}>
                 <img src="../on-off.png" alt="Icono" className="w-6 h-6" />
               </Link>
             </div>
