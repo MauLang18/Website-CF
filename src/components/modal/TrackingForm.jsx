@@ -22,7 +22,7 @@ const TrackingForm = ({ handleClose }) => {
   const [searchResults, setSearchResults] = useState([{}]);
   const [timelineData, setTimelineData] = useState([{}]);
   const [open, setOpen] = useState(true);
-  const apiUrl = `http://localhost:5218/api/TrackingNoLogin/${searchOption}?${searchOption}=${searchText}`;
+  const apiUrl = `http://172.174.251.150:9090/api/TrackingNoLogin/${searchOption}?${searchOption}=${searchText}`;
   const { data, error, loading } = useFetch(apiUrl); // Use useFetch hook with apiUrl
 
   const handleSearch = async () => {
