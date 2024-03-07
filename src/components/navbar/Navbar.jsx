@@ -35,14 +35,14 @@ const NavBar = () => {
     setShowMenu(false);
   };
 
-  const user = JSON.parse(localStorage.getItem("users"));
+  const user = JSON.parse(localStorage.getItem("users")) || {};
+
+  const { given_name } = user;
 
   const logout = () => {
     localStorage.removeItem("users");
     navigate("/login");
   };
-
-  const isUserAuthenticated = !!user;
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -54,6 +54,52 @@ const NavBar = () => {
   const mobileMenuStyles = showMenu
     ? "top-0 xl:static flex-1 flex flex-col xl:flex-row items-center justify-center gap-10 transition-all duration-500 z-50"
     : "hidden";
+
+  const renderAuthOptions = () => {
+    if (given_name) {
+      return (
+        <div className="flex items-center">
+          {given_name === "2" && (
+            <div
+              className="cursor-pointer"
+              onClick={() => navigate("/user-dashboard")}
+            >
+              <img
+                src="../on-off.png"
+                alt="User Dashboard"
+                className="w-6 h-6 ml-2"
+              />
+            </div>
+          )}
+          {given_name === "1" && (
+            <div
+              className="cursor-pointer"
+              onClick={() => navigate("/admin-dashboard")}
+            >
+              <img
+                src="../on-off.png"
+                alt="Admin Dashboard"
+                className="w-6 h-6 ml-2"
+              />
+            </div>
+          )}
+          <div className="cursor-pointer" onClick={logout}>
+            <img src="../logout.png" alt="Logout" className="w-6 h-6 ml-5" />
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <Link to="/login" onClick={closeMenu}>
+          <img
+            src="../on-off.png"
+            alt="Iniciar sesión"
+            className="w-6 h-6 mr-2"
+          />
+        </Link>
+      );
+    }
+  };
 
   return (
     <>
@@ -88,23 +134,7 @@ const NavBar = () => {
           <nav
             className={`bg-[#eeeff2] text-black ${mobileMenuStyles} flex-1 mb-10`}
           >
-            {isUserAuthenticated ? (
-              <div>
-                <div className="cursor-pointer" onClick={logout}>
-                  Logout
-                </div>
-                {user.role === "user" && (
-                  <div onClick={() => navigate("/user-dashboard")}>User</div>
-                )}
-                {user.role === "admin" && (
-                  <div onClick={() => navigate("/admin-dashboard")}>Admin</div>
-                )}
-              </div>
-            ) : (
-              <Link to="/login" onClick={closeMenu}>
-                Registrarse / Iniciar sesión
-              </Link>
-            )}
+            {renderAuthOptions()}
             <Link
               onClick={() => scrollToSection("servicios")}
               className={`${selectedOption === "servicios" ? "underline" : ""}`}
@@ -145,7 +175,7 @@ const NavBar = () => {
         }`}
         style={{ zIndex: 999 }}
       >
-        <div className="w-[1300px] h-[69px] flex items-center justify-start gap-8 ml-[60px]">
+        <div className="max-w-[1300px] h-[69px] flex items-center justify-start gap-8 ml-[60px]">
           <Link to={"/"}>
             <img
               src="../img/logo.png"
@@ -194,26 +224,7 @@ const NavBar = () => {
           className="w-[350px] h-[54px] flex items-center justify-center text-center text-black text-lg font-medium my-auto lg:mr-[-20px] mr-[0px]"
           style={{ fontFamily: "'fuente', sans-serif" }}
         >
-          {!isUserAuthenticated && (
-            <Link to="/login" onClick={closeMenu}>
-              <img src="../on-off.png" alt="Icono" className="w-6 h-6" />
-            </Link>
-          )}
-        </div>
-        <div className="xl:flex xl:items-center xl:justify-center lg:mr-[70px] my-auto">
-          {isUserAuthenticated && (
-            <div className={`lg:hidden ${showMenu ? "block" : "hidden"}`}>
-              {user.role === "user" && (
-                <div onClick={() => navigate("/user-dashboard")}>User</div>
-              )}
-              {user.role === "admin" && (
-                <div onClick={() => navigate("/admin-dashboard")}>Admin</div>
-              )}
-              <div className="cursor-pointer" onClick={logout}>
-                Logout
-              </div>
-            </div>
-          )}
+          {renderAuthOptions()}
         </div>
       </nav>
     </>

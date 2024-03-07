@@ -121,6 +121,11 @@ export default function Login() {
             </Button>
             <Grid container>
               <Grid item>
+                <Link href="/" variant="body2">
+                  {"Regresar a pantalla principal"}
+                </Link>
+              </Grid>
+              <Grid item>
                 <Link href="/signup" variant="body2">
                   {"¿No tienes una cuenta? Registrate"}
                 </Link>
