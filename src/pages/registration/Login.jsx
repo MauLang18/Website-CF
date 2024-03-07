@@ -51,9 +51,9 @@ export default function Login() {
         localStorage.setItem("users", JSON.stringify(user));
         toast.success("Login Successfully");
 
-        const { unique_name, family_name, given_name, nameid } = user;
+        const { given_name } = user;
 
-        if (given_name === "1") {
+        if (given_name === "2") {
           navigate("/user-dashboard");
         } else {
           navigate("/admin-dashboard");
