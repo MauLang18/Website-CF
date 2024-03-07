@@ -8,10 +8,6 @@ const NavBar = () => {
   const [selectedOption, setSelectedOption] = useState(null);
   const navigate = useNavigate();
 
-  const handleAlert = (url) => {
-    window.open(url, "_blank");
-  };
-
   const handleScroll = () => {
     if (window.scrollY > 0) {
       setNavbarFixed(true);
@@ -42,9 +38,11 @@ const NavBar = () => {
   const user = JSON.parse(localStorage.getItem("users"));
 
   const logout = () => {
-    localStorage.clear("users");
+    localStorage.removeItem("users");
     navigate("/login");
   };
+
+  const isUserAuthenticated = !!user;
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -68,7 +66,6 @@ const NavBar = () => {
         style={{ zIndex: 1000 }}
       >
         <div className="flex items-center justify-between w-full p-4">
-          {/* Coloca el logo en el lado izquierdo */}
           <Link to={"/"}>
             <img
               src="../img/logo.png"
@@ -91,19 +88,20 @@ const NavBar = () => {
           <nav
             className={`bg-[#eeeff2] text-black ${mobileMenuStyles} flex-1 mb-10`}
           >
-            {/* Coloca el login dentro del menú */}
-            {user ? (
-              <div
-                className="cursor-pointer"
-                onClick={() => {
-                  closeMenu();
-                  logout();
-                }}
-              >
-                Logout
+            {isUserAuthenticated ? (
+              <div>
+                <div className="cursor-pointer" onClick={logout}>
+                  Logout
+                </div>
+                {user.role === "user" && (
+                  <div onClick={() => navigate("/user-dashboard")}>User</div>
+                )}
+                {user.role === "admin" && (
+                  <div onClick={() => navigate("/admin-dashboard")}>Admin</div>
+                )}
               </div>
             ) : (
-              <Link to={"/"} onClick={closeMenu}>
+              <Link to="/login" onClick={closeMenu}>
                 Registrarse / Iniciar sesión
               </Link>
             )}
@@ -148,7 +146,6 @@ const NavBar = () => {
         style={{ zIndex: 999 }}
       >
         <div className="w-[1300px] h-[69px] flex items-center justify-start gap-8 ml-[60px]">
-          {/* Logo en el lado izquierdo */}
           <Link to={"/"}>
             <img
               src="../img/logo.png"
@@ -156,7 +153,6 @@ const NavBar = () => {
               className="w-[150px] h-[100px]"
             />
           </Link>
-          {/* Resto de los enlaces */}
           <Link
             className={`${
               selectedOption === "servicios" ? "underline" : ""
@@ -198,39 +194,22 @@ const NavBar = () => {
           className="w-[350px] h-[54px] flex items-center justify-center text-center text-black text-lg font-medium my-auto lg:mr-[-20px] mr-[0px]"
           style={{ fontFamily: "'fuente', sans-serif" }}
         >
-          {/* Login */}
-          {!user && (
-            <div>
-              <Link to={"/"} onClick={closeMenu}>
-                <img src="../on-off.png" alt="Icono" className="w-6 h-6" />
-              </Link>
-            </div>
+          {!isUserAuthenticated && (
+            <Link to="/login" onClick={closeMenu}>
+              <img src="../on-off.png" alt="Icono" className="w-6 h-6" />
+            </Link>
           )}
         </div>
         <div className="xl:flex xl:items-center xl:justify-center lg:mr-[70px] my-auto">
-          {user && (
+          {isUserAuthenticated && (
             <div className={`lg:hidden ${showMenu ? "block" : "hidden"}`}>
               {user.role === "user" && (
-                <div>
-                  <Link to={"/user-dashboard"} onClick={closeMenu}>
-                    User
-                  </Link>
-                </div>
+                <div onClick={() => navigate("/user-dashboard")}>User</div>
               )}
               {user.role === "admin" && (
-                <div>
-                  <Link to={"/admin-dashboard"} onClick={closeMenu}>
-                    Admin
-                  </Link>
-                </div>
+                <div onClick={() => navigate("/admin-dashboard")}>Admin</div>
               )}
-              <div
-                className="cursor-pointer"
-                onClick={() => {
-                  closeMenu();
-                  logout();
-                }}
-              >
+              <div className="cursor-pointer" onClick={logout}>
                 Logout
               </div>
             </div>
