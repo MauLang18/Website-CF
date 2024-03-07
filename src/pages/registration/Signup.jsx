@@ -1,160 +1,146 @@
-/* eslint-disable react/no-unescaped-entities */
-import { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import myContext from "../../context/myContext";
-import { Timestamp, addDoc, collection } from "firebase/firestore";
-import { auth, fireDB } from "../../firebase/FirebaseConfig";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import toast from "react-hot-toast";
-import Loader from "../../components/loader/Loader";
+import * as React from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import axios from "axios";
 
-const Signup = () => {
-    const context = useContext(myContext);
-    const {loading, setLoading } = context;
+function SignUp() {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const nombre = data.get("firstName");
+    const apellido = data.get("lastName");
+    const email = data.get("email");
+    const password = data.get("password");
 
-    // navigate 
-    const navigate = useNavigate();
-
-    // User Signup State 
-    const [userSignup, setUserSignup] = useState({
-        name: "",
-        email: "",
-        password: "",
-        role: "user"
-    });
-
-    /**========================================================================
-     *                          User Signup Function 
-    *========================================================================**/
-
-    const userSignupFunction = async () => {
-        // validation 
-        if (userSignup.name === "" || userSignup.email === "" || userSignup.password === "") {
-            toast.error("All Fields are required")
+    try {
+      const response = await axios.post(
+        "http://localhost:5218/api/Usuario/Register",
+        {
+          nombre,
+          apellido,
+          pass: password,
+          correo: email,
+          tipo: "Interno",
+          cliente: null,
+          idRol: 2,
+          estado: 1,
         }
+      );
 
-        setLoading(true);
-        try {
-            const users = await createUserWithEmailAndPassword(auth, userSignup.email, userSignup.password);
+      console.log(response.data);
 
-            // create user object
-            const user = {
-                name: userSignup.name,
-                email: users.user.email,
-                uid: users.user.uid,
-                role: userSignup.role,
-                time: Timestamp.now(),
-                date: new Date().toLocaleString(
-                    "en-US",
-                    {
-                        month: "short",
-                        day: "2-digit",
-                        year: "numeric",
-                    }
-                )
-            }
-
-            // create user Refrence
-            const userRefrence = collection(fireDB, "user")
-
-            // Add User Detail
-            addDoc(userRefrence, user);
-
-            setUserSignup({
-                name: "",
-                email: "",
-                password: ""
-            })
-
-            toast.success("Signup Successfully");
-
-            setLoading(false);
-            navigate('/login')
-        } catch (error) {
-            console.log(error);
-            setLoading(false);
-        }
-
+      // Puedes manejar la respuesta aquí según tus necesidades.
+    } catch (error) {
+      console.error(error);
     }
-    return (
-        <div className='flex justify-center items-center h-screen'>
-            {loading && <Loader/>}
-            {/* Login Form  */}
-            <div className="login_Form bg-pink-50 px-8 py-6 border border-pink-100 rounded-xl shadow-md">
+  };
 
-                {/* Top Heading  */}
-                <div className="mb-5">
-                    <h2 className='text-center text-2xl font-bold text-pink-500 '>
-                        Signup
-                    </h2>
-                </div>
+  const theme = createTheme();
 
-                {/* Input One  */}
-                <div className="mb-3">
-                    <input
-                        type="text"
-                        placeholder='Full Name'
-                        value={userSignup.name}
-                        onChange={(e) => {
-                            setUserSignup({
-                                ...userSignup,
-                                name: e.target.value
-                            })
-                        }}
-                        className='bg-pink-50 border border-pink-200 px-2 py-2 w-96 rounded-md outline-none placeholder-pink-200'
-                    />
-                </div>
-
-                {/* Input Two  */}
-                <div className="mb-3">
-                    <input
-                        type="email"
-                        placeholder='Email Address'
-                        value={userSignup.email}
-                        onChange={(e) => {
-                            setUserSignup({
-                                ...userSignup,
-                                email: e.target.value
-                            })
-                        }}
-                        className='bg-pink-50 border border-pink-200 px-2 py-2 w-96 rounded-md outline-none placeholder-pink-200'
-                    />
-                </div>
-
-                {/* Input Three  */}
-                <div className="mb-5">
-                    <input
-                        type="password"
-                        placeholder='Password'
-                        value={userSignup.password}
-                        onChange={(e) => {
-                            setUserSignup({
-                                ...userSignup,
-                                password: e.target.value
-                            })
-                        }}
-                        className='bg-pink-50 border border-pink-200 px-2 py-2 w-96 rounded-md outline-none placeholder-pink-200'
-                    />
-                </div>
-
-                {/* Signup Button  */}
-                <div className="mb-5">
-                    <button
-                        type='button'
-                        onClick={userSignupFunction}
-                        className='bg-pink-500 hover:bg-pink-600 w-full text-white text-center py-2 font-bold rounded-md '
-                    >
-                        Signup
-                    </button>
-                </div>
-
-                <div>
-                    <h2 className='text-black'>Have an account <Link className=' text-pink-500 font-bold' to={'/login'}>Login</Link></h2>
-                </div>
-
-            </div>
-        </div>
-    );
+  return (
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign up
+          </Typography>
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{ mt: 3 }}
+          >
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  autoComplete="given-name"
+                  name="firstName"
+                  required
+                  fullWidth
+                  id="firstName"
+                  label="Nombre"
+                  autoFocus
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  required
+                  fullWidth
+                  id="lastName"
+                  label="Apellido"
+                  name="lastName"
+                  autoComplete="family-name"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="email"
+                  label="Correo"
+                  name="email"
+                  autoComplete="email"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password"
+                  label="Contraseña"
+                  type="password"
+                  id="password"
+                  autoComplete="new-password"
+                />
+              </Grid>
+            </Grid>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Sign Up
+            </Button>
+            <Grid container justifyContent="flex-end">
+              <Grid item>
+                <Link href="/" variant="body2">
+                  Regresar a pantalla principal
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link href="/login" variant="body2">
+                  ¿Ya tienes una cuenta? Inicia Sesión
+                </Link>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+      </Container>
+    </ThemeProvider>
+  );
 }
 
-export default Signup;
+export default SignUp;
