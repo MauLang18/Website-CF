@@ -56,9 +56,9 @@ const NavBar = () => {
     : "hidden";
 
   const renderAuthOptions = () => {
-    <Link to="https://dashboard.logisticacastrofallas.com" onClick={closeMenu}>
+    <a href="https://dashboard.logisticacastrofallas.com">
       <img src="../on-off.png" alt="Iniciar sesión" className="w-6 h-6 mr-2" />
-    </Link>;
+    </a>;
   };
 
   return (
