@@ -84,9 +84,7 @@ const ContactForm = () => {
             <ul>
               <li className="mb-1">
                 <b className="lg:text-xl">Correo electrónico</b>
-                <p className="lg:text-lg">
-                  {"operaciones@grupocastrofallas.com"}
-                </p>
+                <p className="lg:text-lg">{"info@grupocastrofallas.com"}</p>
               </li>
               <li className="mb-2">
                 <b className="lg:text-xl">Número de teléfono</b>

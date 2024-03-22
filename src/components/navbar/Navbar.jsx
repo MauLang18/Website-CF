@@ -56,49 +56,9 @@ const NavBar = () => {
     : "hidden";
 
   const renderAuthOptions = () => {
-    if (given_name) {
-      return (
-        <div className="flex items-center">
-          {given_name === "2" && (
-            <div
-              className="cursor-pointer"
-              onClick={() => navigate("/user-dashboard")}
-            >
-              <img
-                src="../on-off.png"
-                alt="User Dashboard"
-                className="w-6 h-6 ml-2"
-              />
-            </div>
-          )}
-          {given_name === "1" && (
-            <div
-              className="cursor-pointer"
-              onClick={() => navigate("/admin-dashboard")}
-            >
-              <img
-                src="../on-off.png"
-                alt="Admin Dashboard"
-                className="w-6 h-6 ml-2"
-              />
-            </div>
-          )}
-          <div className="cursor-pointer" onClick={logout}>
-            <img src="../logout.png" alt="Logout" className="w-6 h-6 ml-5" />
-          </div>
-        </div>
-      );
-    } else {
-      return (
-        <Link to="/login" onClick={closeMenu}>
-          <img
-            src="../on-off.png"
-            alt="Iniciar sesión"
-            className="w-6 h-6 mr-2"
-          />
-        </Link>
-      );
-    }
+    <Link to="https://dashboard.logisticacastrofallas.com" onClick={closeMenu}>
+      <img src="../on-off.png" alt="Iniciar sesión" className="w-6 h-6 mr-2" />
+    </Link>;
   };
 
   return (

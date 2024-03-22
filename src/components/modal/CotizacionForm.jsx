@@ -57,7 +57,7 @@ const CotizacionForm = ({ closeModal }) => {
 
   const handleCheckboxChange = (option) => {
     // Clona el array de opciones seleccionadas para evitar mutar el estado directamente
-    const updatedOpcionesCheckbox = [...form.serviciosIntegrales];
+    const updatedOpcionesCheckbox = [...formData.serviciosIntegrales];
 
     // Verifica si la opción ya está en la lista de seleccionados
     const index = updatedOpcionesCheckbox.indexOf(option);
@@ -78,7 +78,7 @@ const CotizacionForm = ({ closeModal }) => {
 
   const handleCheckboxChange1 = (option) => {
     // Clona el array de opciones seleccionadas para evitar mutar el estado directamente
-    const updatedOpcionesCheckbox = [...form.operacion];
+    const updatedOpcionesCheckbox = [...form1.operacion];
 
     // Verifica si la opción ya está en la lista de seleccionados
     const index = updatedOpcionesCheckbox.indexOf(option);
