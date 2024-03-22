@@ -56,9 +56,9 @@ const NavBar = () => {
     : "hidden";
 
   const renderAuthOptions = () => {
-    <a href="https://dashboard.logisticacastrofallas.com">
+    <Link to="https://dashboard.logisticacastrofallas.com" onClick={closeMenu}>
       <img src="../on-off.png" alt="Iniciar sesión" className="w-6 h-6 mr-2" />
-    </a>;
+    </Link>;
   };
 
   return (
@@ -94,7 +94,17 @@ const NavBar = () => {
           <nav
             className={`bg-[#eeeff2] text-black ${mobileMenuStyles} flex-1 mb-10`}
           >
-            {renderAuthOptions()}
+            <Link
+              to="https://dashboard.logisticacastrofallas.com"
+              onClick={closeMenu}
+            >
+              <img
+                src="../on-off.png"
+                alt="Iniciar sesión"
+                className="w-6 h-6 mr-2"
+              />
+            </Link>
+            ;
             <Link
               onClick={() => scrollToSection("servicios")}
               className={`${selectedOption === "servicios" ? "underline" : ""}`}
@@ -184,7 +194,16 @@ const NavBar = () => {
           className="w-[350px] h-[54px] flex items-center justify-center text-center text-black text-lg font-medium my-auto lg:mr-[-20px] mr-[0px]"
           style={{ fontFamily: "'fuente', sans-serif" }}
         >
-          {renderAuthOptions()}
+          <Link
+            to="https://dashboard.logisticacastrofallas.com"
+            onClick={closeMenu}
+          >
+            <img
+              src="../on-off.png"
+              alt="Iniciar sesión"
+              className="w-6 h-6 mr-2"
+            />
+          </Link>
         </div>
       </nav>
     </>
