@@ -132,6 +132,12 @@ const NavBar = () => {
             >
               Contacto
             </Link>
+            <Link
+              to="https://blog.logisticacastrofallas.com"
+              style={{ fontFamily: "'fuente', sans-serif" }}
+            >
+              Blog
+            </Link>
           </nav>
         )}
       </div>
@@ -187,6 +193,12 @@ const NavBar = () => {
             onClick={() => scrollToSection("contacto")}
           >
             Contacto
+          </Link>
+          <Link
+            to="https://blog.logisticacastrofallas.com"
+            style={{ fontFamily: "'fuente', sans-serif" }}
+          >
+            Blog
           </Link>
         </div>
         <div
