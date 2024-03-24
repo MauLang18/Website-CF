@@ -1,36 +1,17 @@
 import React, { useState } from "react";
 import TrackingForm from "../modal/TrackingForm"; // Ajusta la ruta según la ubicación real del componente
-import { Navigate } from "react-router-dom"; // Ajusta la importación según tu configuración
+import { Link } from "react-router-dom"; // Ajusta la importación según tu configuración
 import CotizacionForm from "../modal/CotizacionForm";
 
 const Track = () => {
-  const [isModalOpen, setModalOpen] = useState(false);
-  const [isModalOpen2, setModalOpen2] = useState(false);
-
-  const handleOpenModal = () => {
-    setModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setModalOpen(false);
-  };
-
-  const handleOpenModal2 = () => {
-    setModalOpen2(true);
-  };
-
-  const handleCloseModal2 = () => {
-    setModalOpen2(false);
-  };
-
   return (
     <section>
       <div className="container mx-auto px-5 py-10 md:py-14">
         <div className="flex flex-wrap -m-4 text-center">
           {/* Track 1 */}
-          <div
+          <Link
+            to="/web-tracking"
             className="p-4 md:w-1/2 sm:w-1/2 w-full cursor-pointer"
-            onClick={handleOpenModal}
           >
             <div className="border-2 hover:shadow-xl hover:shadow-gray-200 border-gray-200 bg-gray-100 shadow-[inset_0_0_2px_rgba(0,0,0,0.6)] px-4 py-6 rounded-lg flex items-center justify-center">
               <svg
@@ -57,12 +38,12 @@ const Track = () => {
                 <p className="leading-relaxed">Rastrear mi carga</p>
               </div>
             </div>
-          </div>
+          </Link>
 
           {/* Track 3 */}
-          <div
+          <Link
+            to="/cotizacion"
             className="p-4 md:w-1/2 sm:w-1/2 w-full cursor-pointer"
-            onClick={handleOpenModal2}
           >
             <div className="border-2 hover:shadow-xl hover:shadow-gray-200 border-gray-200 bg-gray-100 shadow-[inset_0_0_2px_rgba(0,0,0,0.6)] px-4 py-6 rounded-lg flex items-center justify-center">
               <svg
@@ -82,27 +63,9 @@ const Track = () => {
                 <p className="leading-relaxed">Cotice su carga</p>
               </div>
             </div>
-          </div>
+          </Link>
         </div>
       </div>
-
-      {/* Modal */}
-      {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-          <TrackingForm
-            data={{}} // Asegúrate de pasar los datos correctos aquí
-            handleClose={handleCloseModal} // Pasa la función de cierre al modal
-          />
-        </div>
-      )}
-
-      {isModalOpen2 && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-          <CotizacionForm
-            closeModal={handleCloseModal2} // Pasa la función de cierre al modal
-          />
-        </div>
-      )}
     </section>
   );
 };

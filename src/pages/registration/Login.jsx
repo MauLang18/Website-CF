@@ -1,139 +1,225 @@
-import * as React from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import React, { useState, useEffect } from "react";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import Box from "@mui/material/Box";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Timeline from "@mui/lab/Timeline";
+import TimelineItem from "@mui/lab/TimelineItem";
+import TimelineSeparator from "@mui/lab/TimelineSeparator";
+import TimelineConnector from "@mui/lab/TimelineConnector";
+import TimelineContent from "@mui/lab/TimelineContent";
+import TimelineDot from "@mui/lab/TimelineDot";
+import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent";
+import poeMapping from "./json/poe.json";
+import polMapping from "./json/pol.json";
+import destinoMapping from "./json/destino.json";
+import origenMapping from "./json/origen.json";
+import transporteMapping from "./json/transporte.json";
+import statusMapping from "./json/status.json";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
-const defaultTheme = createTheme();
+const TrackingForm = () => {
+  const [searchOption, setSearchOption] = useState("IDTRA");
+  const [searchText, setSearchText] = useState("");
+  const [searchResults, setSearchResults] = useState([{}]);
+  const [timelineData, setTimelineData] = useState([{}]);
+  const apiUrl = `https://api.logisticacastrofallas.com/api/TrackingNoLogin/${searchOption}?${searchOption}=${searchText}`;
 
-export default function Login() {
-  const navigate = useNavigate();
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-
+  const handleSearch = async () => {
     try {
-      const response = await fetch(
-        "http://localhost:5218/api/Auth/Login?authType=Interno",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            correo: data.get("email"),
-            pass: data.get("password"),
-          }),
-        }
-      );
-
-      const result = await response.json();
-
-      if (result.isSuccess && result.data !== null) {
-        const [encodedHeader, encodedPayload] = result.data
-          .split(".")
-          .slice(0, 2);
-        const decodedPayload = atob(encodedPayload);
-
-        const user = JSON.parse(decodedPayload);
-        localStorage.setItem("users", JSON.stringify(user));
-        toast.success("Login Successfully");
-
-        const { given_name } = user;
-
-        if (given_name === "2") {
-          navigate("/user-dashboard");
-        } else {
-          navigate("/admin-dashboard");
-        }
-      } else {
-        toast.error("Invalid credentials");
-      }
+      const response = await axios.get(apiUrl);
+      setSearchResults(response.data.data.value || []);
     } catch (error) {
-      console.log(error);
-      toast.error("Login Failed");
+      console.error("Error fetching data:", error);
     }
   };
 
+  useEffect(() => {
+    fetchTimelineData();
+  }, [searchResults]);
+
+  const fetchTimelineData = () => {
+    var timeline = [];
+
+    searchResults.forEach((result, index) => {
+      timeline.push(
+        {
+          date: "ETD",
+          label: `ETD: ${formatDate(result.new_etd1) || ""}`,
+          description: `POL: ${getPolName(result.new_pol) || ""}`,
+        },
+        {
+          date: "Confirmación Zarpe",
+          label: `BUQUE: ${result.new_barcodesalida || ""}`,
+          description: `ZARPE: ${
+            formatDate(result.new_confirmacinzarpe) || ""
+          }`,
+        },
+        {
+          date: "Notif. Aviso Arribo",
+          label: `ARRIBO: ${formatDate(result.new_instcliente) || ""}`,
+        },
+        {
+          date: "ETA",
+          label: `ETA: ${formatDate(result.new_eta) || ""}`,
+          description: `POE: ${getPoeName(result.new_poe) || ""}`,
+        },
+        {
+          date: "Confirmacion de Arribo",
+          label: `ENTREGA: ${formatDate(result.new_eta) || ""}`,
+        },
+        {
+          date: "ENTREGA",
+          label: `ENTREGA: ${
+            result.new_ingreso
+              ? formatDate(result.new_ingreso)
+              : result.new_ingresoabodegas
+              ? formatDate(result.new_ingresoabodegas)
+              : ""
+          }`,
+        }
+      );
+    });
+
+    setTimelineData(timeline);
+  };
+
+  const formatDate = (dateString) => {
+    const options = { day: "2-digit", month: "2-digit", year: "numeric" };
+    const formattedDate = new Date(dateString).toLocaleDateString(
+      "es-ES",
+      options
+    );
+    return formattedDate;
+  };
+
+  const getPoeName = (poe) => {
+    return poeMapping[poe] || "";
+  };
+
+  const getPolName = (pol) => {
+    return polMapping[pol] || "";
+  };
+
+  const getStatusName = (pol) => {
+    return statusMapping[pol] || "";
+  };
+
+  const getTransporteName = (pol) => {
+    return transporteMapping[pol] || "";
+  };
+
+  const getDestinoName = (pol) => {
+    return destinoMapping[pol] || "";
+  };
+
+  const getOrigenName = (pol) => {
+    return origenMapping[pol] || "";
+  };
+
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
+    <Card>
+      <CardContent>
+        <Box sx={{ marginBottom: 4 }}>
+          <Link to="/" className="flex items-center space-x-2 text-gray-600">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M10 19l-7-7m0 0l7-7m-7 7h18"
+              />
+            </svg>
+            <span>Volver</span>
+          </Link>
+          <Typography variant="h6">Elige una opción de búsqueda</Typography>
+          <Select
+            value={searchOption}
+            onChange={(e) => setSearchOption(e.target.value)}
+            fullWidth
+            sx={{ marginTop: 1 }}
+          >
+            <MenuItem value="IDTRA">IDTRA</MenuItem>
+            <MenuItem value="CONTENEDOR">#CONTENEDOR</MenuItem>
+            <MenuItem value="BCF">BCF</MenuItem>
+            <MenuItem value="PO">PO</MenuItem>
+          </Select>
+        </Box>
+
+        <TextField
+          label="Agrega el dato"
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+          fullWidth
+          sx={{ marginBottom: 2 }}
+        />
+
+        <Button
+          variant="contained"
+          onClick={handleSearch}
+          color="primary"
+          fullWidth
           sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
+            backgroundColor: "#000", // Fondo negro
+            color: "#fff", // Letras blancas
+            marginBottom: 2,
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Iniciar Sesión
-          </Typography>
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
-          >
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Correo"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Contraseña"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Iniciar Sesión
-            </Button>
-            <Grid container>
-              <Grid item>
-                <Link href="/" variant="body2">
-                  {"Regresar a pantalla principal"}
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="/signup" variant="body2">
-                  {"¿No tienes una cuenta? Registrate"}
-                </Link>
-              </Grid>
-            </Grid>
+          Buscar
+        </Button>
+
+        {searchResults.map((result, index) => (
+          <Box key={index} sx={{ marginBottom: 4 }}>
+            <Typography variant="h6">IDTRA:</Typography>
+            <Typography>{result.title}</Typography>
+            <Typography variant="h6">BL:</Typography>
+            <Typography>{result.new_bcf}</Typography>
+            <Typography variant="h6">#CONTENEDOR:</Typography>
+            <Typography>{result.new_contenedor}</Typography>
+            <Typography variant="h6">STATUS:</Typography>
+            <Typography>{getStatusName(result.new_preestado2)}</Typography>
+            <Typography variant="h6">FECHA MODIFICACIÓN:</Typography>
+            <Typography>{formatDate(result.modifiedon)}</Typography>
+            <Typography variant="h6">ORIGEN:</Typography>
+            <Typography>{getOrigenName(result.new_origen)}</Typography>
+            <Typography variant="h6">DESTINO:</Typography>
+            <Typography>{getDestinoName(result.new_destino)}</Typography>
+            <Typography variant="h6">TRANSPORTE:</Typography>
+            <Typography>{getTransporteName(result.new_transporte)}</Typography>
+
+            <Timeline>
+              {timelineData.map((event, index) => (
+                <TimelineItem key={index}>
+                  <TimelineOppositeContent color="textSecondary">
+                    {event.date}
+                  </TimelineOppositeContent>
+                  <TimelineSeparator>
+                    <TimelineDot />
+                    <TimelineConnector />
+                  </TimelineSeparator>
+                  <TimelineContent>
+                    <Typography>{event.label}</Typography>
+                    <Typography>{event.description}</Typography>
+                  </TimelineContent>
+                </TimelineItem>
+              ))}
+            </Timeline>
           </Box>
-        </Box>
-      </Container>
-    </ThemeProvider>
+        ))}
+      </CardContent>
+    </Card>
   );
-}
+};
+
+export default TrackingForm;

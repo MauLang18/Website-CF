@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Dialog, DialogBody } from "@material-tailwind/react";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
 import Timeline from "@mui/lab/Timeline";
 import TimelineItem from "@mui/lab/TimelineItem";
 import TimelineSeparator from "@mui/lab/TimelineSeparator";
@@ -16,7 +17,7 @@ import origenMapping from "../json/origen.json";
 import transporteMapping from "../json/transporte.json";
 import statusMapping from "../json/status.json";
 
-const TrackingForm = ({ handleClose }) => {
+const TrackingForm = () => {
   const [searchOption, setSearchOption] = useState("IDTRA");
   const [searchText, setSearchText] = useState("");
   const [searchResults, setSearchResults] = useState([{}]);
@@ -115,9 +116,25 @@ const TrackingForm = ({ handleClose }) => {
   };
 
   return (
-    <Dialog open={open} handler={handleCloseModal} className="bg-[#f5f5f5]">
-      <DialogBody className="space-y-4 overflow-auto max-h-[400px]">
-        <div className="p-6 max-w-md mx-auto bg-white rounded-xl shadow-md flex flex-col space-y-4">
+    <Card className="bg-[#f5f5f5]">
+      <CardContent className="space-y-4 overflow-auto max-h-[400px]">
+        <button onClick={handleCloseModal}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M10 19l-7-7m0 0l7-7m-7 7h18"
+            />
+          </svg>
+        </button>
+        <div className="flex justify-between items-center p-4 bg-white rounded-t-xl">
           <div>
             <label
               htmlFor="searchOption"
@@ -200,8 +217,8 @@ const TrackingForm = ({ handleClose }) => {
             </div>
           ))}
         </div>
-      </DialogBody>
-    </Dialog>
+      </CardContent>
+    </Card>
   );
 };
 

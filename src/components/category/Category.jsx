@@ -8,12 +8,9 @@ const Category = () => {
 
   const category = [
     {
-      icon: "https://cdn-icons-png.flaticon.com/256/4695/4695562.png",
-      name: "Logistica Internacional",
-      title1: "Logistica Marítima",
-      title2: "Logistica Terrestre",
-      title3: "Logistica Aérea",
-      content1: `
+      icon: "../transporte_internacional_maritimo.png",
+      name: "Transporte Internacional Marítimo",
+      content: `
   <div>
     <p>
       <strong>MODALIDAD LCL:</strong> Mayor flexibilidad en la gestión del almacenaje.
@@ -46,7 +43,12 @@ const Category = () => {
     </p>
   </div>
 `,
-      content2: `
+      image: "../logistica_maritima.jpg",
+    },
+    {
+      icon: "../transporte_internacional_terrestre.png",
+      name: "Transporte Internacional Terrestre",
+      content: `
   <div>
     <p>
       <strong>MODALIDAD LTL:</strong> Mayor flexibilidad en la gestión del almacenaje.
@@ -76,7 +78,12 @@ const Category = () => {
     </p>
   </div>
 `,
-      content3: `
+      image: "../logistica_terreste.jpg",
+    },
+    {
+      icon: "../transporte_internacional_aereo.png",
+      name: "Transporte Internacional Aéreo",
+      content: `
   <p>
     <strong>MODALIDAD LCL:</strong> Mayor flexibilidad en la gestión del almacenaje.
   </p>
@@ -93,13 +100,21 @@ const Category = () => {
     Agilidad en el despacho de aduanas.
   </p>
 `,
-      image1: "../logistica_maritima.jpg",
-      image2: "../logistica_terreste.jpg",
-      image3: "../logistica_aerea.jpg",
+      image: "../logistica_aerea.jpg",
     },
     {
-      icon: "https://cdn-icons-png.flaticon.com/256/2760/2760975.png",
-      name: "Agenciamiento Aduanal",
+      icon: "../proyecto_carga.png",
+      name: "Proyecto Carga",
+      content: `
+  <p>
+    <Ofrecemos el transporte de carga especial, como carga sobredimensionada, maquinaria y vehículos pesados, carga proyecto, carga a granel, carga refrigerada, carga peligrosa, siempre ajustando las soluciones según los requerimientos específicos de cada caso.
+  </p>
+`,
+      image: "../logistica_aerea.jpg",
+    },
+    {
+      icon: "../tramites_de_aduanas.png",
+      name: "Tramites de Aduanas",
       content: `
   <p>
     <strong>Personal altamente calificado, profesional y técnico.</strong> Le brindamos nuestro servicio de agencia de aduanas en <strong>IMPORT</strong> o <strong>EXPORT</strong> en los diferentes mercados:
@@ -130,8 +145,8 @@ const Category = () => {
       image: "../agenciamiento_aduanal.jpg",
     },
     {
-      icon: "https://cdn-icons-png.flaticon.com/256/1350/1350237.png",
-      name: "Almacenaje Fiscal-General",
+      icon: "../whs.png",
+      name: "Almacenes de Carga General/Fiscal",
       content: `
   <p>
     <strong>Almacén Fiscal en CRC:</strong> Instalaciones propias con gran capacidad de almacenamiento.
@@ -146,36 +161,14 @@ const Category = () => {
       image: "../almacen_fiscal.jpg",
     },
     {
-      icon: "https://cdn-icons-png.flaticon.com/256/147/147028.png",
-      name: "Transporte Local de Carga ",
+      icon: "../seguro_de_carga.png",
+      name: "Seguros de Carga Internacional",
       content: `
   <p>
-    <strong>Equipos y personal con experiencia, servicio 24/7.</strong>
-  </p>
-  <p>
-    Con una flotilla con <strong>ubicación satelital.</strong>
-  </p>
-  <p>
-    Capacidad de transporte en modalidades: <strong>Seco, Congelado, Refrigerado, Sobredimensionado.</strong>
-  </p>
-  <p>
-    Traslado de contenedores.
+    Brindamos a nuestros clientes la facilidad de emisión de pólizas de seguro de carga internacional de manera inmediata y con tarifas muy competitivas. Resguardando así tus envíos en import o export.
   </p>
 `,
       image: "../transporte_carga.jpg",
-    },
-    {
-      icon: "https://cdn-icons-png.flaticon.com/256/12113/12113850.png",
-      name: "Asesorias y Capacitaciones",
-      content: `
-  <p>
-    Brindamos a nuestros clientes una serie de capacitaciones mensuales, ya sea de manera presencial o virtual, sobre diversos temas de interés del comercio internacional. También ofrecemos asesorías personalizadas en materia técnica aduanal y comercio exterior.
-  </p>
-  <p>
-    Consulta por nuestro calendario de capacitaciones mensuales o bien, solicita una asesoría personalizada.
-  </p>
-`,
-      image: "../asesorias_capacitaciones.jpg",
     },
   ];
 
