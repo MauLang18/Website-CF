@@ -104,7 +104,6 @@ const NavBar = () => {
                 className="w-6 h-6 mr-2"
               />
             </Link>
-            ;
             <Link
               onClick={() => scrollToSection("servicios")}
               className={`${selectedOption === "servicios" ? "underline" : ""}`}

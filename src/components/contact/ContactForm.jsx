@@ -61,9 +61,27 @@ const ContactForm = () => {
           </h1>
         </div>
       </div>
+      <div className="flex justify-center items-center">
+        <Maps />
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-3">
         {/*codigo con datos / se pasan los datos a otro lado, aqui el mapa*/}
-        <Maps />
+        <div id="textoC" className="mt-10 text-left lg:text-xl">
+          <ul>
+            <li className="mb-1">
+              <b className="lg:text-xl">Correo electrónico</b>
+              <p className="lg:text-lg">info@grupocastrofallas.com</p>
+            </li>
+            <li className="mb-2">
+              <b className="lg:text-xl">Número de teléfono</b>
+              <p className="lg:text-lg">+506 2272-6772</p>
+            </li>
+            <li>
+              <b className="lg:text-xl">WhatsApp</b>
+              <p className="lg:text-lg">+506 7005-1261</p>
+            </li>
+          </ul>
+        </div>
         <div className="wow animated fadeInRight" data-wow-delay=".2s">
           <form className="shake" onSubmit={handleSubmit}>
             <div className="flex flex-wrap -mx-2 mb-4">
