@@ -6,6 +6,7 @@ const NavBar = () => {
   const [navbarFixed, setNavbarFixed] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
+  const [showBlogDropdown, setShowBlogDropdown] = useState(false);
   const navigate = useNavigate();
 
   const handleScroll = () => {
@@ -132,12 +133,30 @@ const NavBar = () => {
             >
               Contacto
             </Link>
-            <Link
-              to="https://blog.logisticacastrofallas.com"
-              style={{ fontFamily: "'fuente', sans-serif" }}
-            >
-              Blog
-            </Link>
+            <div className="relative">
+              <button
+                onClick={() => setShowBlogDropdown(!showBlogDropdown)}
+                className="focus:outline-none"
+              >
+                Blog
+              </button>
+              {showBlogDropdown && (
+                <div className="absolute mt-2 w-40 bg-white border border-gray-300 shadow-lg rounded-md">
+                  <Link
+                    to="https://blog.logisticacastrofallas.com"
+                    className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                  >
+                    Noticias
+                  </Link>
+                  <Link
+                    to="https://blog.logisticacastrofallas.com/empleo"
+                    className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                  >
+                    Trabaja con nosotros
+                  </Link>
+                </div>
+              )}
+            </div>
           </nav>
         )}
       </div>
@@ -194,12 +213,30 @@ const NavBar = () => {
           >
             Contacto
           </Link>
-          <Link
-            to="https://blog.logisticacastrofallas.com"
-            style={{ fontFamily: "'fuente', sans-serif" }}
-          >
-            Blog
-          </Link>
+          <div className="relative">
+            <button
+              onClick={() => setShowBlogDropdown(!showBlogDropdown)}
+              className="focus:outline-none"
+            >
+              Blog
+            </button>
+            {showBlogDropdown && (
+              <div className="absolute mt-2 w-40 bg-white border border-gray-300 shadow-lg rounded-md">
+                <Link
+                  to="https://blog.logisticacastrofallas.com"
+                  className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                >
+                  Noticias
+                </Link>
+                <Link
+                  to="https://blog.logisticacastrofallas.com/empleo"
+                  className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                >
+                  Trabaja con nosotros
+                </Link>
+              </div>
+            )}
+          </div>
         </div>
         <div
           className="w-[350px] h-[54px] flex items-center justify-center text-center text-black text-lg font-medium my-auto lg:mr-[-20px] mr-[0px]"

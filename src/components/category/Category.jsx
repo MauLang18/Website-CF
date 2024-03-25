@@ -107,7 +107,7 @@ const Category = () => {
       name: "Proyecto Carga",
       content: `
   <p>
-    <Ofrecemos el transporte de carga especial, como carga sobredimensionada, maquinaria y vehículos pesados, carga proyecto, carga a granel, carga refrigerada, carga peligrosa, siempre ajustando las soluciones según los requerimientos específicos de cada caso.
+    Ofrecemos el transporte de carga especial, como carga sobredimensionada, maquinaria y vehículos pesados, carga proyecto, carga a granel, carga refrigerada, carga peligrosa, siempre ajustando las soluciones según los requerimientos específicos de cada caso.
   </p>
 `,
       image: "../logistica_aerea.jpg",
@@ -192,26 +192,22 @@ const Category = () => {
         </div>
 
         <div className="flex overflow-x-scroll lg:justify-center hide-scroll-bar">
-          <div className="flex space-x-2 lg:space-x-4">
-            {category.map((item, index) => (
-              <div key={index} className="lg:px-2 text-center">
-                <div
-                  onClick={() => openModal(item)}
-                  className="w-16 h-16 lg:w-24 lg:h-24 max-w-xs rounded-full bg-[#e21c21] transition-all hover:bg-[#ff1f1f] cursor-pointer mb-1"
-                >
-                  <div className="flex justify-center mb-12">
+          <div className="bg-[#e21c21] flex">
+            <div className="container mx-auto flex flex-col md:flex-row">
+              {category.map((item, index) => (
+                <div key={index} className="flex flex-col items-center">
+                  <div
+                    onClick={() => openModal(item)}
+                    className="w-16 h-16 lg:w-24 lg:h-24 max-w-xs rounded-full bg-[#e21c21] transition-all hover:bg-[#ff1f1f] cursor-pointer mb-1 flex items-center justify-center"
+                  >
                     <img src={item.icon} alt="img" />
                   </div>
+                  <h1 className="text-sm lg:text-lg font-medium title-font first-letter:uppercase text-center">
+                    {item.name}
+                  </h1>
                 </div>
-                <h1 className="text-sm lg:text-lg font-medium title-font first-letter:uppercase">
-                  <div className="flex flex-col">
-                    {item.name.split(" ").map((word, i) => (
-                      <span key={i}>{word}</span>
-                    ))}
-                  </div>
-                </h1>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>

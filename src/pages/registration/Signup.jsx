@@ -10,16 +10,20 @@ import {
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import { Link } from "react-router-dom";
+import CargoShippingText from "./cargoText";
 
 const useStyles = makeStyles((theme) => ({
   container: {
     maxWidth: 400,
     width: "100%",
+    minHeight: "100vh", // Establece una altura mínima para que el contenedor ocupe toda la altura de la pantalla
+    display: "flex",
+    alignItems: "center", // Centra el contenido verticalmente
   },
   form: {
     background: "#FFF",
     padding: 25,
-    margin: "150px 0",
+    margin: "0 auto", // Centra horizontalmente el formulario
     boxShadow: "0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24)",
     borderRadius: 8,
   },
@@ -148,325 +152,346 @@ const ContactoFormulario = () => {
           backgroundPosition: "center", // Centra la imagen en el contenedor
         }}
       >
-        <div className={classes.container}>
-          <Link to="/" className="flex items-center space-x-2 text-black">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M10 19l-7-7m0 0l7-7m-7 7h18"
-              />
-            </svg>
-            <span>Volver</span>
-          </Link>
-          <form onSubmit={handleSubmit} className={classes.form}>
-            <Typography variant="h3" className={classes.title}>
-              Cotiza tu carga
-            </Typography>
-            <TextField
-              className={classes.TextField}
-              label="Nombre Empresa"
-              variant="outlined"
-              name="nombre"
-              value={formData.nombre}
-              onChange={handleChange}
-              required
-              autoFocus
+        <Link to="/" className="flex items-center space-x-2 text-black">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M10 19l-7-7m0 0l7-7m-7 7h18"
             />
-            <TextField
-              className={classes.TextField}
-              label="Teléfono"
-              variant="outlined"
-              name="telefono"
-              value={formData.telefono}
-              onChange={handleChange}
-              required
-            />
-            <TextField
-              className={classes.TextField}
-              label="Correo"
-              variant="outlined"
-              name="correo"
-              value={formData.correo}
-              onChange={handleChange}
-              required
-            />
-            <div className="form-group mb-4">
-              <Typography
-                className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="operacion"
-              >
-                Operación
-              </Typography>
-              <div className="flex space-x-4">
-                <Typography className="inline-flex items-center">
-                  <TextField
-                    type="checkbox"
-                    name="operacion"
-                    value="Importación"
-                    onChange={() => handleCheckboxChange1("Importación")}
-                    checked={formData.operacion.includes("Importación")}
-                  />
-                  <span className="ml-2">Importación</span>
+          </svg>
+          <span>Volver</span>
+        </Link>
+        <div className="flex justify-between max-w-6xl mx-auto">
+          <div className="w-1/2 items-center">
+            <div className={classes.container}>
+              <form onSubmit={handleSubmit} className={classes.form}>
+                <Typography variant="h3" className={classes.title}>
+                  Cotiza tu carga
                 </Typography>
-                <Typography className="inline-flex items-center">
-                  <TextField
-                    type="checkbox"
-                    name="operacion"
-                    value="Exportación"
-                    onChange={() => handleCheckboxChange1("Exportación")}
-                    checked={formData.operacion.includes("Exportación")}
-                  />
-                  <span className="ml-2">Exportación</span>
-                </Typography>
+                <TextField
+                  className={classes.TextField}
+                  label="Nombre Empresa"
+                  variant="outlined"
+                  name="nombre"
+                  value={formData.nombre}
+                  onChange={handleChange}
+                  required
+                  autoFocus
+                />
+                <TextField
+                  className={classes.TextField}
+                  label="Teléfono"
+                  variant="outlined"
+                  name="telefono"
+                  value={formData.telefono}
+                  onChange={handleChange}
+                  required
+                />
+                <TextField
+                  className={classes.TextField}
+                  label="Correo"
+                  variant="outlined"
+                  name="correo"
+                  value={formData.correo}
+                  onChange={handleChange}
+                  required
+                />
+                <div className="form-group mb-4">
+                  <Typography
+                    className="block text-gray-700 text-sm font-bold mb-2"
+                    htmlFor="operacion"
+                  >
+                    Operación
+                  </Typography>
+                  <div className="flex space-x-4">
+                    <Typography className="inline-flex items-center">
+                      <TextField
+                        type="checkbox"
+                        name="operacion"
+                        value="Importación"
+                        onChange={() => handleCheckboxChange1("Importación")}
+                        checked={formData.operacion.includes("Importación")}
+                      />
+                      <span className="ml-2">Importación</span>
+                    </Typography>
+                    <Typography className="inline-flex items-center">
+                      <TextField
+                        type="checkbox"
+                        name="operacion"
+                        value="Exportación"
+                        onChange={() => handleCheckboxChange1("Exportación")}
+                        checked={formData.operacion.includes("Exportación")}
+                      />
+                      <span className="ml-2">Exportación</span>
+                    </Typography>
+                  </div>
+                </div>
+                <div className={classes.textField}>
+                  <Select
+                    className={classes.Select}
+                    id="negociacion"
+                    name="negociacion"
+                    value={formData.negociacion}
+                    onChange={handleChange}
+                    required
+                  >
+                    <MenuItem value="0">Termino Negociación</MenuItem>
+                    <MenuItem value="EXW">EXW</MenuItem>
+                    <MenuItem value="FOB">FOB</MenuItem>
+                    <MenuItem value="DDP">DDP</MenuItem>
+                    <MenuItem value="CIF">CIF</MenuItem>
+                    <MenuItem value="CFR">CFR</MenuItem>
+                    <MenuItem value="DAP">DAP</MenuItem>
+                    <MenuItem value="FCA">FCA</MenuItem>
+                  </Select>
+                </div>
+                <div className={classes.textField}>
+                  <Select
+                    className={classes.Select}
+                    id="servicio"
+                    name="servicio"
+                    value={formData.servicio}
+                    onChange={handleChange}
+                    required
+                  >
+                    <MenuItem value="0">Servicio</MenuItem>
+                    <MenuItem value="Marítimo LCL">Marítimo LCL</MenuItem>
+                    <MenuItem value="Marítimo FCL 1X40STD/HC">
+                      Marítimo FCL 1X40STD/HC
+                    </MenuItem>
+                    <MenuItem value="Marítimo FCL 1X20STD">
+                      Marítimo FCL 1X20STD
+                    </MenuItem>
+                    <MenuItem value="Aéreo">Aéreo</MenuItem>
+                    <MenuItem value="Carga Proyecto">Carga Proyecto</MenuItem>
+                    <MenuItem value="Terrestre LTL">Terrestre LTL</MenuItem>
+                    <MenuItem value="Terrestre FTL 1X53/48">
+                      Terrestre FTL 1X53/48
+                    </MenuItem>
+                    <MenuItem value="Terrestre FTL 1X20">
+                      Terrestre FTL 1X20
+                    </MenuItem>
+                  </Select>
+                </div>
+                <div className={classes.textField}>
+                  <Select
+                    className={classes.Select}
+                    id="origen"
+                    name="origen"
+                    value={formData.origen}
+                    onChange={handleChange}
+                    required
+                  >
+                    <MenuItem value="0">Origen</MenuItem>
+                    <MenuItem value="Miami, USA (SD)">Miami, USA (SD)</MenuItem>
+                    <MenuItem value="Port Everglades, USA (CY)">
+                      Port Everglades, USA (CY)
+                    </MenuItem>
+                    <MenuItem value="Qingdao, CN (CY)">
+                      Qingdao, CN (CY)
+                    </MenuItem>
+                    <MenuItem value="Shanghai, CN (CY)">
+                      Shanghai, CN (CY)
+                    </MenuItem>
+                    <MenuItem value="Ningbo, CN (CY)">Ningbo, CN (CY)</MenuItem>
+                    <MenuItem value="Yantian, CN (CY)">
+                      Yantian, CN (CY)
+                    </MenuItem>
+                    <MenuItem value="Xingang, CN (CY)">
+                      Xingang, CN (CY)
+                    </MenuItem>
+                    <MenuItem value="Xiamen, CN (CY)">Xiamen, CN (CY)</MenuItem>
+                    <MenuItem value="Chongqing, CN">Chongqing, CN</MenuItem>
+                    <MenuItem value="Ho Chi Minh, Vietnam">
+                      Ho Chi Minh, Vietnam
+                    </MenuItem>
+                    <MenuItem value="Mundra, India">Mundra, India</MenuItem>
+                    <MenuItem value="San José, Costa Rica">
+                      San José, Costa Rica
+                    </MenuItem>
+                  </Select>
+                </div>
+                <div className={classes.textField}>
+                  <Select
+                    className={classes.Select}
+                    id="destino"
+                    name="destino"
+                    value={formData.destino}
+                    onChange={handleChange}
+                    required
+                  >
+                    <MenuItem value="0">Destino</MenuItem>
+                    <MenuItem value="Puerto Caldera, CRC (CY)">
+                      Puerto Caldera, CRC (CY)
+                    </MenuItem>
+                    <MenuItem value="Puerto Moin, CRC (CY)">
+                      Puerto Moin, CRC (CY)
+                    </MenuItem>
+                    <MenuItem value="San José, CRC (SD)">
+                      San José, CRC (SD)
+                    </MenuItem>
+                    <MenuItem value="Puerto Quetzal, Guatemala">
+                      Puerto Quetzal, Guatemala
+                    </MenuItem>
+                    <MenuItem value="Puerto Callao, Perú">
+                      Puerto Callao, Perú
+                    </MenuItem>
+                    <MenuItem value="Zona Libre, Colón, Panamá">
+                      Zona Libre, Colón, Panamá
+                    </MenuItem>
+                  </Select>
+                </div>
+                <div className={classes.textField}>
+                  <Select
+                    className={classes.Select}
+                    id="producto"
+                    name="producto"
+                    value={formData.producto}
+                    onChange={handleChange}
+                    required
+                  >
+                    <MenuItem value="0">Tipo Producto</MenuItem>
+                    <MenuItem value="Carga General">Carga General</MenuItem>
+                    <MenuItem value="Carga Peligrosa">Carga Peligrosa</MenuItem>
+                    <MenuItem value="Alimentos">Alimentos</MenuItem>
+                    <MenuItem value="Menaje Casa">Menaje Casa</MenuItem>
+                  </Select>
+                </div>
+                <TextField
+                  className={classes.TextField}
+                  label="Valor Mercancia"
+                  variant="outlined"
+                  name="nombre"
+                  value={formData.valor}
+                  onChange={handleChange}
+                  required
+                  autoFocus
+                />
+                <div className="form-group mb-4">
+                  <Typography
+                    className="block text-gray-700 text-sm font-bold mb-2"
+                    htmlFor="serviciosIntegrales"
+                  >
+                    Servicios Integrales
+                  </Typography>
+                  <div className="flex space-x-2">
+                    <Typography className="inline-flex items-center">
+                      <TextField
+                        type="checkbox"
+                        name="serviciosIntegrales"
+                        value="Seguro Carga"
+                        onChange={() => handleCheckboxChange("Seguro Carga")}
+                        checked={formData.serviciosIntegrales.includes(
+                          "Seguro Carga"
+                        )}
+                      />
+                      <span className="ml-2">Seguro Carga</span>
+                    </Typography>
+                    <Typography className="inline-flex items-center">
+                      <TextField
+                        type="checkbox"
+                        name="serviciosIntegrales"
+                        value="Transporte Nacional"
+                        onChange={() =>
+                          handleCheckboxChange("Transporte Nacional")
+                        }
+                        checked={formData.serviciosIntegrales.includes(
+                          "Transporte Nacional"
+                        )}
+                      />
+                      <span className="ml-2">Transporte Nacional</span>
+                    </Typography>
+                    <Typography className="inline-flex items-center">
+                      <TextField
+                        type="checkbox"
+                        name="serviciosIntegrales"
+                        value="Agencia Aduanas"
+                        onChange={() => handleCheckboxChange("Agencia Aduanas")}
+                        checked={formData.serviciosIntegrales.includes(
+                          "Agencia Aduanas"
+                        )}
+                      />
+                      <span className="ml-2">Agencia Aduanas</span>
+                    </Typography>
+                    <Typography className="inline-flex items-center">
+                      <TextField
+                        type="checkbox"
+                        name="serviciosIntegrales"
+                        value="Almacén Fiscal"
+                        onChange={() => handleCheckboxChange("Almacén Fiscal")}
+                        checked={formData.serviciosIntegrales.includes(
+                          "Almacén Fiscal"
+                        )}
+                      />
+                      <span className="ml-2">Almacén Fiscal</span>
+                    </Typography>
+                  </div>
+                </div>
+                <TextField
+                  className={classes.TextField}
+                  label="Peso"
+                  variant="outlined"
+                  name="nombre"
+                  value={formData.peso}
+                  onChange={handleChange}
+                  required
+                  autoFocus
+                />
+                <TextField
+                  className={classes.TextField}
+                  label="Volumen"
+                  variant="outlined"
+                  name="nombre"
+                  value={formData.volumen}
+                  onChange={handleChange}
+                  required
+                  autoFocus
+                />
+                <TextField
+                  className={classes.TextField}
+                  label="Dimensiones"
+                  variant="outlined"
+                  name="nombre"
+                  value={formData.dimensiones}
+                  onChange={handleChange}
+                  required
+                  autoFocus
+                />
+                <textarea
+                  className={classes.TextField}
+                  id="message"
+                  name="message"
+                  rows="3"
+                  placeholder="Escriba las observaciones"
+                  onChange={handleChange}
+                  value={formData.message}
+                ></textarea>
+                <Button
+                  className={classes.button}
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                >
+                  Enviar
+                </Button>
+              </form>
+            </div>
+          </div>
+          <div className="w-1/2">
+            <div className={classes.container}>
+              <div className={classes.form}>
+                <CargoShippingText />
               </div>
             </div>
-            <div className={classes.textField}>
-              <Select
-                className={classes.Select}
-                id="negociacion"
-                name="negociacion"
-                value={formData.negociacion}
-                onChange={handleChange}
-                required
-              >
-                <MenuItem value="0">Termino Negociación</MenuItem>
-                <MenuItem value="EXW">EXW</MenuItem>
-                <MenuItem value="FOB">FOB</MenuItem>
-                <MenuItem value="DDP">DDP</MenuItem>
-                <MenuItem value="CIF">CIF</MenuItem>
-                <MenuItem value="CFR">CFR</MenuItem>
-                <MenuItem value="DAP">DAP</MenuItem>
-                <MenuItem value="FCA">FCA</MenuItem>
-              </Select>
-            </div>
-            <div className={classes.textField}>
-              <Select
-                className={classes.Select}
-                id="servicio"
-                name="servicio"
-                value={formData.servicio}
-                onChange={handleChange}
-                required
-              >
-                <MenuItem value="0">Servicio</MenuItem>
-                <MenuItem value="Marítimo LCL">Marítimo LCL</MenuItem>
-                <MenuItem value="Marítimo FCL 1X40STD/HC">
-                  Marítimo FCL 1X40STD/HC
-                </MenuItem>
-                <MenuItem value="Marítimo FCL 1X20STD">
-                  Marítimo FCL 1X20STD
-                </MenuItem>
-                <MenuItem value="Aéreo">Aéreo</MenuItem>
-                <MenuItem value="Carga Proyecto">Carga Proyecto</MenuItem>
-                <MenuItem value="Terrestre LTL">Terrestre LTL</MenuItem>
-                <MenuItem value="Terrestre FTL 1X53/48">
-                  Terrestre FTL 1X53/48
-                </MenuItem>
-                <MenuItem value="Terrestre FTL 1X20">
-                  Terrestre FTL 1X20
-                </MenuItem>
-              </Select>
-            </div>
-            <div className={classes.textField}>
-              <Select
-                className={classes.Select}
-                id="origen"
-                name="origen"
-                value={formData.origen}
-                onChange={handleChange}
-                required
-              >
-                <MenuItem value="0">Origen</MenuItem>
-                <MenuItem value="Miami, USA (SD)">Miami, USA (SD)</MenuItem>
-                <MenuItem value="Port Everglades, USA (CY)">
-                  Port Everglades, USA (CY)
-                </MenuItem>
-                <MenuItem value="Qingdao, CN (CY)">Qingdao, CN (CY)</MenuItem>
-                <MenuItem value="Shanghai, CN (CY)">Shanghai, CN (CY)</MenuItem>
-                <MenuItem value="Ningbo, CN (CY)">Ningbo, CN (CY)</MenuItem>
-                <MenuItem value="Yantian, CN (CY)">Yantian, CN (CY)</MenuItem>
-                <MenuItem value="Xingang, CN (CY)">Xingang, CN (CY)</MenuItem>
-                <MenuItem value="Xiamen, CN (CY)">Xiamen, CN (CY)</MenuItem>
-                <MenuItem value="Chongqing, CN">Chongqing, CN</MenuItem>
-                <MenuItem value="Ho Chi Minh, Vietnam">
-                  Ho Chi Minh, Vietnam
-                </MenuItem>
-                <MenuItem value="Mundra, India">Mundra, India</MenuItem>
-                <MenuItem value="San José, Costa Rica">
-                  San José, Costa Rica
-                </MenuItem>
-              </Select>
-            </div>
-            <div className={classes.textField}>
-              <Select
-                className={classes.Select}
-                id="destino"
-                name="destino"
-                value={formData.destino}
-                onChange={handleChange}
-                required
-              >
-                <MenuItem value="0">Destino</MenuItem>
-                <MenuItem value="Puerto Caldera, CRC (CY)">
-                  Puerto Caldera, CRC (CY)
-                </MenuItem>
-                <MenuItem value="Puerto Moin, CRC (CY)">
-                  Puerto Moin, CRC (CY)
-                </MenuItem>
-                <MenuItem value="San José, CRC (SD)">
-                  San José, CRC (SD)
-                </MenuItem>
-                <MenuItem value="Puerto Quetzal, Guatemala">
-                  Puerto Quetzal, Guatemala
-                </MenuItem>
-                <MenuItem value="Puerto Callao, Perú">
-                  Puerto Callao, Perú
-                </MenuItem>
-                <MenuItem value="Zona Libre, Colón, Panamá">
-                  Zona Libre, Colón, Panamá
-                </MenuItem>
-              </Select>
-            </div>
-            <div className={classes.textField}>
-              <Select
-                className={classes.Select}
-                id="producto"
-                name="producto"
-                value={formData.producto}
-                onChange={handleChange}
-                required
-              >
-                <MenuItem value="0">Tipo Producto</MenuItem>
-                <MenuItem value="Carga General">Carga General</MenuItem>
-                <MenuItem value="Carga Peligrosa">Carga Peligrosa</MenuItem>
-                <MenuItem value="Alimentos">Alimentos</MenuItem>
-                <MenuItem value="Menaje Casa">Menaje Casa</MenuItem>
-              </Select>
-            </div>
-            <TextField
-              className={classes.TextField}
-              label="Valor Mercancia"
-              variant="outlined"
-              name="nombre"
-              value={formData.valor}
-              onChange={handleChange}
-              required
-              autoFocus
-            />
-            <div className="form-group mb-4">
-              <Typography
-                className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="serviciosIntegrales"
-              >
-                Servicios Integrales
-              </Typography>
-              <div className="flex space-x-2">
-                <Typography className="inline-flex items-center">
-                  <TextField
-                    type="checkbox"
-                    name="serviciosIntegrales"
-                    value="Seguro Carga"
-                    onChange={() => handleCheckboxChange("Seguro Carga")}
-                    checked={formData.serviciosIntegrales.includes(
-                      "Seguro Carga"
-                    )}
-                  />
-                  <span className="ml-2">Seguro Carga</span>
-                </Typography>
-                <Typography className="inline-flex items-center">
-                  <TextField
-                    type="checkbox"
-                    name="serviciosIntegrales"
-                    value="Transporte Nacional"
-                    onChange={() => handleCheckboxChange("Transporte Nacional")}
-                    checked={formData.serviciosIntegrales.includes(
-                      "Transporte Nacional"
-                    )}
-                  />
-                  <span className="ml-2">Transporte Nacional</span>
-                </Typography>
-                <Typography className="inline-flex items-center">
-                  <TextField
-                    type="checkbox"
-                    name="serviciosIntegrales"
-                    value="Agencia Aduanas"
-                    onChange={() => handleCheckboxChange("Agencia Aduanas")}
-                    checked={formData.serviciosIntegrales.includes(
-                      "Agencia Aduanas"
-                    )}
-                  />
-                  <span className="ml-2">Agencia Aduanas</span>
-                </Typography>
-                <Typography className="inline-flex items-center">
-                  <TextField
-                    type="checkbox"
-                    name="serviciosIntegrales"
-                    value="Almacén Fiscal"
-                    onChange={() => handleCheckboxChange("Almacén Fiscal")}
-                    checked={formData.serviciosIntegrales.includes(
-                      "Almacén Fiscal"
-                    )}
-                  />
-                  <span className="ml-2">Almacén Fiscal</span>
-                </Typography>
-              </div>
-            </div>
-            <TextField
-              className={classes.TextField}
-              label="Peso"
-              variant="outlined"
-              name="nombre"
-              value={formData.peso}
-              onChange={handleChange}
-              required
-              autoFocus
-            />
-            <TextField
-              className={classes.TextField}
-              label="Volumen"
-              variant="outlined"
-              name="nombre"
-              value={formData.volumen}
-              onChange={handleChange}
-              required
-              autoFocus
-            />
-            <TextField
-              className={classes.TextField}
-              label="Dimensiones"
-              variant="outlined"
-              name="nombre"
-              value={formData.dimensiones}
-              onChange={handleChange}
-              required
-              autoFocus
-            />
-            <textarea
-              className={classes.TextField}
-              id="message"
-              name="message"
-              rows="3"
-              placeholder="Escriba las observaciones"
-              onChange={handleChange}
-              value={formData.message}
-            ></textarea>
-            <Button
-              className={classes.button}
-              variant="contained"
-              color="primary"
-              type="submit"
-            >
-              Enviar
-            </Button>
-          </form>
+          </div>
         </div>
       </CardContent>
     </Card>
