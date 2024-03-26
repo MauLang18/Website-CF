@@ -27,8 +27,18 @@ export const useForm = (initialForm, validateForm) => {
     if (Object.keys(errores).length === 0) {
       setLoading(true);
       helpHttp()
-        .post("https://formsubmit.co/ajax/info@grupocastrofallas.com", {
-          body: form,
+        .post("https://api.logisticacastrofallas.com/api/Mail/Send", {
+          body: {
+            to: "info@grupocastrofallas.com",
+            subject: "Contacto",
+            html: `
+              <p><strong>Nombre:</strong> ${form.name}</p>
+              <p><strong>Apellido:</strong> ${form.lastname}</p>
+              <p><strong>Teléfono:</strong> ${form.phone}</p>
+              <p><strong>Correo Electrónico:</strong> ${form.email}</p>
+              <p><strong>Mensaje:</strong> ${form.message}</p>
+            `,
+          },
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
@@ -39,17 +49,6 @@ export const useForm = (initialForm, validateForm) => {
           alert("Mensaje enviado.");
           setResponse(true);
         });
-      // helpHttp()
-      //   .post("https://apiadmin.tranquiexpress.com/api/Auth/Login", {
-      //     body: form,
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //       Accept: "application/json",
-      //     },
-      //   })
-      //   .then((res) => {
-      //     console.log(res.data);
-      //   });
     } else {
       return;
     }

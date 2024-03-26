@@ -72,24 +72,50 @@ const ContactoFormulario = () => {
       ...prevData,
       [name]: value,
     }));
+    console.log(formData);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch("https://formsubmit.co/ajax/pricing@castrofallas.com", {
+    // Construye el cuerpo del correo electrónico en formato HTML
+    const emailBody = `
+    <h1>Cotización de Servicios</h1>
+    <p><strong>Nombre Empresa:</strong> ${formData.nombre}</p>
+    <p><strong>Teléfono:</strong> ${formData.telefono}</p>
+    <p><strong>Correo:</strong> ${formData.correo}</p>
+    <p><strong>Operación:</strong> ${formData.operacion.join(", ")}</p>
+    <p><strong>Negociación:</strong> ${formData.negociacion}</p>
+    <p><strong>Servicio:</strong> ${formData.servicio}</p>
+    <p><strong>Origen:</strong> ${formData.origen}</p>
+    <p><strong>Destino:</strong> ${formData.destino}</p>
+    <p><strong>Tipo Producto:</strong> ${formData.producto}</p>
+    <p><strong>Valor Mercancía:</strong> ${formData.valor}</p>
+    <p><strong>Servicios Integrales:</strong> ${formData.serviciosIntegrales.join(
+      ", "
+    )}</p>
+    <p><strong>Peso:</strong> ${formData.peso}</p>
+    <p><strong>Volumen:</strong> ${formData.volumen}</p>
+    <p><strong>Dimensiones:</strong> ${formData.dimensiones}</p>
+  `;
+
+    fetch("https://api.logisticacastrofallas.com/api/Mail/Send", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify({
+        to: "pricing@grupocastrofallas.com",
+        subject: "Cotización",
+        body: emailBody,
+      }),
     })
       .then((response) => {
         if (response.ok) {
-          console.log("¡Formulario enviado con éxito!");
-          // Puedes hacer cualquier acción adicional aquí, como mostrar un mensaje de éxito al usuario
+          alert("Cotización enviada con éxito!");
+          // Puedes hacer cualquier acción adicional aquí, como redireccionar al usuario a otra página
         } else {
-          console.error("Error al enviar el formulario:", response.statusText);
+          alert("Error al enviar la cotización: " + response.statusText);
           // También puedes manejar errores, por ejemplo, mostrando un mensaje de error al usuario
         }
       })
@@ -369,7 +395,7 @@ const ContactoFormulario = () => {
                   className={classes.TextField}
                   label="Valor Mercancia"
                   variant="outlined"
-                  name="nombre"
+                  name="valor"
                   value={formData.valor}
                   onChange={handleChange}
                   required
@@ -439,7 +465,7 @@ const ContactoFormulario = () => {
                   className={classes.TextField}
                   label="Peso"
                   variant="outlined"
-                  name="nombre"
+                  name="peso"
                   value={formData.peso}
                   onChange={handleChange}
                   required
@@ -449,7 +475,7 @@ const ContactoFormulario = () => {
                   className={classes.TextField}
                   label="Volumen"
                   variant="outlined"
-                  name="nombre"
+                  name="volumen"
                   value={formData.volumen}
                   onChange={handleChange}
                   required
@@ -459,7 +485,7 @@ const ContactoFormulario = () => {
                   className={classes.TextField}
                   label="Dimensiones"
                   variant="outlined"
-                  name="nombre"
+                  name="dimensiones"
                   value={formData.dimensiones}
                   onChange={handleChange}
                   required

@@ -149,7 +149,7 @@ const NavBar = () => {
                     Noticias
                   </Link>
                   <Link
-                    to="https://blog.logisticacastrofallas.com/empleo"
+                    to="https://blog.logisticacastrofallas.com/#/empleo"
                     className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
                   >
                     Trabaja con nosotros
@@ -229,7 +229,7 @@ const NavBar = () => {
                   Noticias
                 </Link>
                 <Link
-                  to="https://blog.logisticacastrofallas.com/empleo"
+                  to="https://blog.logisticacastrofallas.com/#/empleo"
                   className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
                 >
                   Trabaja con nosotros
