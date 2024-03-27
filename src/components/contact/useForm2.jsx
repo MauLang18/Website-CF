@@ -29,9 +29,9 @@ export const useForm = (initialForm, validateForm) => {
       helpHttp()
         .post("https://api.logisticacastrofallas.com/api/Mail/Send", {
           body: {
-            to: "info@grupocastrofallas.com",
-            subject: "Contacto",
-            html: `
+            para: "info@grupocastrofallas.com",
+            asunto: "Contacto",
+            contenido: `
               <p><strong>Nombre:</strong> ${form.name}</p>
               <p><strong>Apellido:</strong> ${form.lastname}</p>
               <p><strong>Teléfono:</strong> ${form.phone}</p>
