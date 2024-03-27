@@ -97,6 +97,7 @@ const ContactoFormulario = () => {
     <p><strong>Peso:</strong> ${formData.peso}</p>
     <p><strong>Volumen:</strong> ${formData.volumen}</p>
     <p><strong>Dimensiones:</strong> ${formData.dimensiones}</p>
+    <p><strong>Observaciones:</strong> ${formData.message}</p>
   `;
 
     fetch("https://api.logisticacastrofallas.com/api/Mail/Send", {
@@ -105,18 +106,34 @@ const ContactoFormulario = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        to: "pricing@grupocastrofallas.com",
-        subject: "Cotización",
-        body: emailBody,
+        para: "pricing@grupocastrofallas.com",
+        asunto: "Cotización",
+        contenido: emailBody,
       }),
     })
       .then((response) => {
         if (response.ok) {
           alert("Cotización enviada con éxito!");
-          // Puedes hacer cualquier acción adicional aquí, como redireccionar al usuario a otra página
+          setFormData({
+            nombre: "",
+            correo: "",
+            telefono: "",
+            sitioWeb: "",
+            mensaje: "",
+            operacion: [],
+            negociacion: "0",
+            servicio: "0",
+            origen: "0",
+            destino: "0",
+            producto: "0",
+            valor: "",
+            serviciosIntegrales: [],
+            peso: "",
+            volumen: "",
+            dimensiones: "",
+          });
         } else {
           alert("Error al enviar la cotización: " + response.statusText);
-          // También puedes manejar errores, por ejemplo, mostrando un mensaje de error al usuario
         }
       })
       .catch((error) => {

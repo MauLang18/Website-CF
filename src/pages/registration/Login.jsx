@@ -70,15 +70,15 @@ const TrackingForm = () => {
           description: `POD: ${getPoeName(result.new_poe) || ""}`,
         },
         {
-          date: "ETA DESTINO",
-          label: `ETA: ${formatDate(result.new_etadestino) || ""}`,
-          description: `POD: ${getDestinoName(result.new_destino) || ""}`,
-        },
-        {
           date: "Confirmacion de Arribo",
           label: `OFICIALIZACION: ${
             formatDateTime(result.new_fechayhoraoficializacion) || ""
           }`,
+        },
+        {
+          date: "ETA DESTINO",
+          label: `ETA: ${formatDate(result.new_etadestino) || ""}`,
+          description: `POD: ${getDestinoName(result.new_destino) || ""}`,
         },
         {
           date: "ENTREGA",

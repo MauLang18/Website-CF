@@ -202,7 +202,11 @@ const Category = () => {
                   onClick={() => openModal(item)}
                   className="w-16 h-16 lg:w-24 lg:h-24 max-w-xs rounded-full transition-all hover:bg-[#ff1f1f] cursor-pointer mb-1 flex items-center justify-center"
                 >
-                  <img src={item.icon} alt="img" />
+                  <img
+                    src={item.icon}
+                    alt="img"
+                    style={{ width: "50px", height: "50px" }}
+                  />
                 </div>
                 <h1 className="text-sm lg:text-lg font-medium title-font first-letter:uppercase text-center overflow-hidden h-12">
                   <span
@@ -215,7 +219,10 @@ const Category = () => {
             ))}
           </div>
         </div>
-        <div className="border border-red-500 p-4 rounded-md">
+        <br />
+        <div
+          className={`border border-red-500 p-4 rounded-md mb-4 lg:mb-0 lg:w-[500px] mx-auto`}
+        >
           <h1 className="text-xl lg:text-2xl font-bold mb-4 text-center text-red-500">
             Servicios Adicionales
           </h1>
@@ -227,7 +234,11 @@ const Category = () => {
                     onClick={() => openModal(item)}
                     className="w-16 h-16 lg:w-24 lg:h-24 max-w-xs rounded-full transition-all hover:bg-[#ff1f1f] cursor-pointer mb-1 flex items-center justify-center"
                   >
-                    <img src={item.icon} alt="img" />
+                    <img
+                      src={item.icon}
+                      alt="img"
+                      style={{ width: "50px", height: "50px" }}
+                    />
                   </div>
                   <h1 className="text-sm lg:text-lg font-medium title-font first-letter:uppercase text-center overflow-hidden h-12">
                     <span
