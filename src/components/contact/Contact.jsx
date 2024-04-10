@@ -58,7 +58,7 @@ const Contact = () => {
         setLoading(true);
         axios
           .post("https://api.logisticacastrofallas.com/api/Mail/Send", {
-            para: "maulangbonilla.18@gmail.com",
+            para: "info@grupocastrofallas.com",
             asunto: "Contacto",
             contenido: `
               <p><strong>Nombre:</strong> ${form.name}</p>
