@@ -29,7 +29,7 @@ export const useForm = (initialForm, validateForm) => {
       helpHttp()
         .post("https://api.logisticacastrofallas.com/api/Mail/Send", {
           body: {
-            para: "info@grupocastrofallas.com",
+            para: "maulangbonilla.18@gmaail.com",
             asunto: "Contacto",
             contenido: `
               <p><strong>Nombre:</strong> ${form.name}</p>
