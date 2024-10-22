@@ -1,0 +1,81 @@
+import React, { useState } from 'react';
+
+const Chatbox = () => {
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState("");
+
+  const handleSendMessage = () => {
+    if (input.trim() !== "") {
+      // Agrega el mensaje del usuario
+      setMessages([...messages, { text: input, sender: "user" }]);
+      setInput("");
+      // Manda la respuesta automática
+      handleBotResponse();
+    }
+  };
+
+  const handleBotResponse = () => {
+    // Mensajes automáticos de respuesta personalizados con el nombre "GrupoCastroFallas"
+    const responses = [
+      { text: "Buenas,Bienvenido a CastroFallasSA se le enviara nuestros datos para un mejor contacto", sender: "bot" },
+      { text: "Nuestro número es +506 2272-6772", sender
+        
+        : "bot" },
+      { text: "Nuestro correo es info@grupocastrofallas.com", sender: "bot" }
+    ];
+    
+    // Add answers
+    responses.forEach((response, index) => {
+      setTimeout(() => {
+        setMessages(prevMessages => [...prevMessages, response]);
+      }, (index + 1) * 1000);
+       // Incrementar el tiempo de respuesta en 1 segundo por cada mensaje
+    });
+  };
+
+  return (
+    <div className="bg-gray-100 p-4 rounded-lg w-full max-w-lg mx-auto mt-10 shadow-lg">
+      <h2 className="text-xl font-bold mb-4 text-center">Buenas,Bienvenido a CastroFallasSA se le enviara nuestros datos para un mejor contacto </h2>
+      <div className="h-64 overflow-y-scroll bg-white p-4 rounded-lg shadow-inner">
+        {messages.map((message, index) => (
+          <div key={index} className={`my-2 p-2 rounded-lg ${message.sender === "user" ? "bg-blue-500 text-white" : "bg-gray-300 text-black"}`}>
+            {message.text}
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-4 flex">
+        <input 
+          className="flex-1 p-2 border border-gray-300 rounded-lg shadow-inner" 
+          type="text" 
+          value={input} 
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Escribe tu mensaje..."
+        />
+        <button 
+          className="ml-2 px-4 py-2 bg-blue-600 text-white rounded-lg" 
+          onClick={handleSendMessage}
+        >
+          Enviar
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default Chatbox;
+import React from 'react';
+import Chatbox from './components/Chatbox';
+
+function App() {
+  return (
+    <div className="ChatboxCastroFallasSA">
+      <Chatbox />
+    </div>
+    git flow feature start Chatbox;
+
+  );
+}
+
+export default App;
+npm start
